@@ -109,6 +109,7 @@
     <Compile Include="Serializers\ScreenshotSerializers\ScreenshotSerializerBase.cs" />
     <Compile Include="Serializers\ScreenshotSerializers\ScrSerializer.cs" />
     <Compile Include="Serializers\SerializeManager.cs" />
+    <Compile Include="Serializers\SnapshotSerializers\IntelHexSerializer.cs" />
     <Compile Include="Serializers\SnapshotSerializers\RzxSerializer.cs" />
     <Compile Include="Serializers\SnapshotSerializers\SitSerializer.cs" />
     <Compile Include="Serializers\SnapshotSerializers\SnapshotSerializerBase.cs" />
