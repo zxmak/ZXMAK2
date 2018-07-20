@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6ED5233E-F9D3-438C-8563-3E48C8950C5E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ZXMAK2.Hardware.GdbServer</RootNamespace>
+    <AssemblyName>ZXMAK2.Hardware.GdbServer</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\_bindebug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\_binrelease\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Breakpoint.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="GDBJtagDevice.cs" />
+    <Compile Include="Gdb\Errno.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Gdb\GDBNetworkServer.cs" />
+    <Compile Include="Gdb\GDBPacket.cs" />
+    <Compile Include="Gdb\GDBSession.cs" />
+    <Compile Include="Interfaces\IDebugBridge.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ZXMAK2.Engine.Cpu\ZXMAK2.Engine.Cpu.csproj">
+      <Project>{DA58F7C5-8365-4483-AAE4-0C6A90D42C35}</Project>
+      <Name>ZXMAK2.Engine.Cpu</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\ZXMAK2.Engine\ZXMAK2.Engine.csproj">
+      <Project>{FCE1FEFA-24FC-4867-9770-6635D3CBAEAA}</Project>
+      <Name>ZXMAK2.Engine</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\ZXMAK2.Logging\ZXMAK2.Logging.csproj">
+      <Project>{B75EFD3C-BEC5-4090-AAFA-CC9E5906C876}</Project>
+      <Name>ZXMAK2.Logging</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.targets\Common.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6C861516-42FE-4FB1-B52B-1B8E682F0C7D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ZXMAK2.Hardware.WinForms</RootNamespace>
+    <AssemblyName>ZXMAK2.Hardware.WinForms</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\_bindebug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\_binrelease\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WeifenLuo.WinFormsUI.Docking">
+      <HintPath>..\Libraries\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="dbgWD1793.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dbgWD1793.Designer.cs">
+      <DependentUpon>dbgWD1793.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormMemoryMap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMemoryMap.Designer.cs">
+      <DependentUpon>FormMemoryMap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="General\ViewModels\BaseDebuggerViewModel.cs" />
+    <Compile Include="General\ViewModels\BreakpointsViewModel.cs" />
+    <Compile Include="General\ViewModels\DebuggerViewModel.cs" />
+    <Compile Include="General\DebugPanels.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="General\ViewModels\DisassemblyViewModel.cs" />
+    <Compile Include="General\FormCPU.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="General\FormCPU.Designer.cs">
+      <DependentUpon>FormCPU.cs</DependentUpon>
+    </Compile>
+    <Compile Include="General\ViewModels\Entities\BreakpointViewModel.cs" />
+    <Compile Include="General\Views\Converters.cs" />
+    <Compile Include="General\Views\FormDebuggerEx.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="General\Views\FormDebuggerEx.Designer.cs">
+      <DependentUpon>FormDebuggerEx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="General\Views\FormDisassembly.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="General\Views\FormDisassembly.Designer.cs">
+      <DependentUpon>FormDisassembly.cs</DependentUpon>
+    </Compile>
+    <Compile Include="General\Views\FormMemory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="General\Views\FormMemory.Designer.cs">
+      <DependentUpon>FormMemory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="General\Views\FormRegisters.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="General\Views\FormRegisters.Designer.cs">
+      <DependentUpon>FormRegisters.cs</DependentUpon>
+    </Compile>
+    <Compile Include="General\Views\FormBreakpoints.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="General\Views\FormBreakpoints.designer.cs">
+      <DependentUpon>FormBreakpoints.cs</DependentUpon>
+    </Compile>
+    <Compile Include="General\ViewModels\MemoryViewModel.cs" />
+    <Compile Include="General\ViewModels\RegistersViewModel.cs" />
+    <Compile Include="General\Views\IntegerToStringConverter.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Sprinter\DebugForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Sprinter\DebugForm.Designer.cs">
+      <DependentUpon>DebugForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TapeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="dbgWD1793.resx">
+      <DependentUpon>dbgWD1793.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMemoryMap.resx">
+      <DependentUpon>FormMemoryMap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="General\FormCPU.resx">
+      <DependentUpon>FormCPU.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="General\Views\FormDebuggerEx.resx">
+      <DependentUpon>FormDebuggerEx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="General\Views\FormDisassembly.resx">
+      <DependentUpon>FormDisassembly.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="General\Views\FormMemory.resx">
+      <DependentUpon>FormMemory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="General\Views\FormRegisters.resx">
+      <DependentUpon>FormRegisters.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="General\Views\FormBreakpoints.resx">
+      <DependentUpon>FormBreakpoints.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Sprinter\DebugForm.resx">
+      <DependentUpon>DebugForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TapeForm.resx">
+      <DependentUpon>TapeForm.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ZXMAK2.Dependency\ZXMAK2.Dependency.csproj">
+      <Project>{BB32EB49-52FF-4976-9586-5C4E415CD730}</Project>
+      <Name>ZXMAK2.Dependency</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\ZXMAK2.Engine.Cpu\ZXMAK2.Engine.Cpu.csproj">
+      <Project>{DA58F7C5-8365-4483-AAE4-0C6A90D42C35}</Project>
+      <Name>ZXMAK2.Engine.Cpu</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\ZXMAK2.Engine\ZXMAK2.Engine.csproj">
+      <Project>{FCE1FEFA-24FC-4867-9770-6635D3CBAEAA}</Project>
+      <Name>ZXMAK2.Engine</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\ZXMAK2.Hardware.Circuits\ZXMAK2.Hardware.Circuits.csproj">
+      <Project>{24F7E5E1-9524-41AA-93E6-95D9B10869A7}</Project>
+      <Name>ZXMAK2.Hardware.Circuits</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\ZXMAK2.Hardware\ZXMAK2.Hardware.csproj">
+      <Project>{8731D63C-7736-462B-88C9-A2E419020B5D}</Project>
+      <Name>ZXMAK2.Hardware</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\ZXMAK2.Host.Presentation\ZXMAK2.Host.Presentation.csproj">
+      <Project>{5AB428BF-1378-456E-BD06-4412A4399B13}</Project>
+      <Name>ZXMAK2.Host.Presentation</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\ZXMAK2.Host.WinForms\ZXMAK2.Host.WinForms.csproj">
+      <Project>{E7AFB7C0-7BAF-4C0F-A1FB-FA2DB5A3AD11}</Project>
+      <Name>ZXMAK2.Host.WinForms</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\ZXMAK2.Host\ZXMAK2.Host.csproj">
+      <Project>{7267B638-8145-46BD-AC72-60D0D6002B51}</Project>
+      <Name>ZXMAK2.Host</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\ZXMAK2.Logging\ZXMAK2.Logging.csproj">
+      <Project>{B75EFD3C-BEC5-4090-AAFA-CC9E5906C876}</Project>
+      <Name>ZXMAK2.Logging</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\ZXMAK2.Model.Tape\ZXMAK2.Model.Tape.csproj">
+      <Project>{8851E497-6345-45E3-9936-EC17A4477A71}</Project>
+      <Name>ZXMAK2.Model.Tape</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\ZXMAK2.Mvvm\ZXMAK2.Mvvm.csproj">
+      <Project>{99a1b2f4-b132-4eb3-9e56-10db22af6e6b}</Project>
+      <Name>ZXMAK2.Mvvm</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZXMAK2.Resources\ZXMAK2.Resources.csproj">
+      <Project>{1D3FFF75-30F8-4E8A-B650-B7FB3DA9C776}</Project>
+      <Name>ZXMAK2.Resources</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.targets\Common.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

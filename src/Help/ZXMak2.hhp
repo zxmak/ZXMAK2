@@ -1,0 +1,17 @@
+[OPTIONS]
+Compatibility=1.1 or later
+Compiled file=ZXMak2.chm
+Contents file=ZXMak2_contents.hhc
+Default topic=Overview.htm
+Display compile progress=No
+Error log file=e:\Programovanie\C#\ZXMak2\Doku\log1.log
+Index file=Index.hhk
+Title=ZXMak2
+
+
+[FILES]
+Debugger.htm
+Overview.htm
+
+[INFOTYPES]
+

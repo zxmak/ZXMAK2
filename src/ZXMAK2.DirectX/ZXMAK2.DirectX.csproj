@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{187489BD-151A-4F25-B9C4-AD4B66A53350}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ZXMAK2.DirectX</RootNamespace>
+    <AssemblyName>ZXMAK2.DirectX</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\_bindebug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\_binrelease\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ComObject.cs" />
+    <Compile Include="Direct3D\AdapterInformation.cs" />
+    <Compile Include="Vectors\CustomVertex.cs" />
+    <Compile Include="Direct3D\D3DADAPTER_IDENTIFIER9.cs" />
+    <Compile Include="Direct3D\D3DBACKBUFFER_TYPE.cs" />
+    <Compile Include="Direct3D\D3DBLEND.cs" />
+    <Compile Include="Direct3D\D3DCAPS.cs" />
+    <Compile Include="Direct3D\D3DCAPS9.cs" />
+    <Compile Include="Direct3D\D3DCLEAR.cs" />
+    <Compile Include="Vectors\D3DCOLOR.cs" />
+    <Compile Include="Direct3D\D3DCREATE.cs" />
+    <Compile Include="Direct3D\D3DDEVTYPE.cs" />
+    <Compile Include="Direct3D\D3DDISPLAYMODE.cs" />
+    <Compile Include="Direct3D\D3DFORMAT.cs" />
+    <Compile Include="Direct3D\D3DFVF.cs" />
+    <Compile Include="Direct3D\D3DLOCK.cs" />
+    <Compile Include="Direct3D\D3DLOCKED_RECT.cs" />
+    <Compile Include="Vectors\D3DMATRIX.cs" />
+    <Compile Include="Direct3D\D3DMULTISAMPLE_TYPE.cs" />
+    <Compile Include="Direct3D\D3DPOOL.cs" />
+    <Compile Include="Direct3D\D3DPRESENT.cs" />
+    <Compile Include="Direct3D\D3DPRESENTFLAG.cs" />
+    <Compile Include="Direct3D\D3DPRESENT_INTERVAL.cs" />
+    <Compile Include="Direct3D\D3DPRESENT_PARAMETERS.cs" />
+    <Compile Include="Direct3D\D3DPRIMITIVETYPE.cs" />
+    <Compile Include="Direct3D\D3DRASTER_STATUS.cs" />
+    <Compile Include="Direct3D\D3DRENDERSTATETYPE.cs" />
+    <Compile Include="Direct3D\D3DSAMPLERSTATETYPE.cs" />
+    <Compile Include="Direct3D\D3DSWAPEFFECT.cs" />
+    <Compile Include="Direct3D\D3DTEXTUREFILTERTYPE.cs" />
+    <Compile Include="Direct3D\D3DUSAGE.cs" />
+    <Compile Include="Direct3D\D3DXFont.cs" />
+    <Compile Include="Direct3D\D3DXSprite.cs" />
+    <Compile Include="Direct3D\D3DXSPRITEFLAG.cs" />
+    <Compile Include="Direct3D\Direct3D9.cs" />
+    <Compile Include="Direct3D\Direct3D9Ex.cs" />
+    <Compile Include="Direct3D\Direct3DBaseTexture9.cs" />
+    <Compile Include="Direct3D\Direct3DDevice9.cs" />
+    <Compile Include="Direct3D\Direct3DResource9.cs" />
+    <Compile Include="Direct3D\Direct3DSurface9.cs" />
+    <Compile Include="Direct3D\Direct3DSwapChain9.cs" />
+    <Compile Include="Direct3D\Direct3DTexture9.cs" />
+    <Compile Include="Direct3D\Direct3DVertexBuffer9.cs" />
+    <Compile Include="Direct3D\DT.cs" />
+    <Compile Include="Vectors\D3DRECT.cs" />
+    <Compile Include="Vectors\D3DXVECTOR2.cs" />
+    <Compile Include="Vectors\D3DXVECTOR3.cs" />
+    <Compile Include="DirectInput\DI8DEVCLASS.cs" />
+    <Compile Include="DirectInput\DI8DEVTYPE.cs" />
+    <Compile Include="DirectInput\DIDEVICEINSTANCE.cs" />
+    <Compile Include="DirectInput\DIDOI.cs" />
+    <Compile Include="DirectInput\DIEDFL.cs" />
+    <Compile Include="DirectInput\DIDATAFORMAT.cs" />
+    <Compile Include="DirectInput\DIDF.cs" />
+    <Compile Include="DirectInput\DIJOYSTATE.cs" />
+    <Compile Include="DirectInput\DIMOUSESTATE.cs" />
+    <Compile Include="DirectInput\DIOBJECTDATAFORMAT.cs" />
+    <Compile Include="DirectInput\DirectInput8W.cs" />
+    <Compile Include="DirectInput\DirectInputDevice8W.cs" />
+    <Compile Include="DirectInput\DISCL.cs" />
+    <Compile Include="DirectInput\EnumDevicesCallback.cs" />
+    <Compile Include="DirectInput\Key.cs" />
+    <Compile Include="DirectInput\SysGuid.cs" />
+    <Compile Include="DirectSound\DeviceInformation.cs" />
+    <Compile Include="DirectSound\DirectSound8.cs" />
+    <Compile Include="DirectSound\DirectSoundBase.cs" />
+    <Compile Include="DirectXException.cs" />
+    <Compile Include="DirectSound\DSB.cs" />
+    <Compile Include="DirectSound\DSBCAPS_FLAGS.cs" />
+    <Compile Include="DirectSound\DSBLOCK.cs" />
+    <Compile Include="DirectSound\DSBPLAY_FLAGS.cs" />
+    <Compile Include="DirectSound\DSBPOSITIONNOTIFY.cs" />
+    <Compile Include="DirectSound\DSBSTATUS.cs" />
+    <Compile Include="DirectSound\DSBUFFERDESC.cs" />
+    <Compile Include="DirectSound\DSCAPS.cs" />
+    <Compile Include="DirectSound\DSCAPS_FLAGS.cs" />
+    <Compile Include="DirectSound\DSEFFECTDESC.cs" />
+    <Compile Include="DirectSound\DSFX_I3DL2_MATERIAL_PRESET.cs" />
+    <Compile Include="DirectSound\DSSCL.cs" />
+    <Compile Include="DirectSound\EnumDelegateCallback.cs" />
+    <Compile Include="ErrorCode.cs" />
+    <Compile Include="FunctionCallback.cs" />
+    <Compile Include="HRESULT.cs" />
+    <Compile Include="IUnknown.cs" />
+    <Compile Include="DirectSound\SecondarySoundBuffer.cs" />
+    <Compile Include="DirectSound\SoundBuffer.cs" />
+    <Compile Include="DirectSound\SoundBufferNotifier.cs" />
+    <Compile Include="DirectSound\SPEAKER_FLAGS.cs" />
+    <Compile Include="DirectSound\WaveFormat.cs" />
+    <Compile Include="DirectSound\WaveFormatAdpcm.cs" />
+    <Compile Include="DirectSound\WaveFormatExtensible.cs" />
+    <Compile Include="Direct3D\D3DX9.cs" />
+    <Compile Include="Native\NativeHelper.cs" />
+    <Compile Include="Native\NativeMethods.cs" />
+    <Compile Include="Vectors\RawBool.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Native\NativeHelper.il" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Direct3D\Direct3DDevice9.il" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <CompileDependsOn>
+      HideILFromCompile;
+      $(CompileDependsOn);
+      InitializeIL;
+      CoreDecompile;
+      CoreCompileIL;
+    </CompileDependsOn>
+  </PropertyGroup>
+  <Target Name="HideILFromCompile">
+    <ItemGroup>
+      <IL Include="@(Compile)" Condition="'%(Extension)'=='.il'" />
+      <Compile Remove="@(Compile)" Condition="'%(Extension)'=='.il'" />
+    </ItemGroup>
+  </Target>
+  <Target Name="InitializeIL">
+    <PropertyGroup>
+      <ILFile>@(IntermediateAssembly->'%(RootDir)%(Directory)%(Filename).il', ' ')</ILFile>
+      <ILResourceFile>@(IntermediateAssembly->'%(RootDir)%(Directory)%(Filename).res', ' ')</ILResourceFile>
+    </PropertyGroup>
+  </Target>
+  <Target Name="CoreDecompile" Inputs="@(IntermediateAssembly)" Outputs="$(ILFile)" Condition="Exists ( @(IntermediateAssembly) )">
+    <GetFrameworkSdkPath>
+      <Output TaskParameter="Path" PropertyName="FrameworkSdkPath" />
+    </GetFrameworkSdkPath>
+    <PropertyGroup>
+      <ILDasm>"$(FrameworkSdkPath)bin\ildasm.exe" /nobar /linenum /output:"$(ILFile)" @(IntermediateAssembly->'"%(FullPath)"', ' ')</ILDasm>
+    </PropertyGroup>
+    <PropertyGroup Condition=" Exists ( '$(FrameworkSdkPath)bin\NETFX 4.0 Tools\ildasm.exe' ) ">
+      <ILDasm>"$(FrameworkSdkPath)bin\NETFX 4.0 Tools\ildasm.exe" /nobar /linenum /output:"$(ILFile)" @(IntermediateAssembly->'"%(FullPath)"', ' ')</ILDasm>
+    </PropertyGroup>
+    <PropertyGroup Condition=" Exists ( '$(FrameworkSdkPath)bin\NETFX 4.5.1 Tools\ildasm.exe' ) ">
+      <ILDasm>"$(FrameworkSdkPath)bin\NETFX 4.5.1 Tools\ildasm.exe" /nobar /linenum /output:"$(ILFile)" @(IntermediateAssembly->'"%(FullPath)"', ' ')</ILDasm>
+    </PropertyGroup>
+    <PropertyGroup Condition=" Exists ( '$(FrameworkSdkPath)bin\NETFX 4.6 Tools\ildasm.exe' ) ">
+      <ILDasm>"$(FrameworkSdkPath)bin\NETFX 4.6 Tools\ildasm.exe" /nobar /linenum /output:"$(ILFile)" @(IntermediateAssembly->'"%(FullPath)"', ' ')</ILDasm>
+    </PropertyGroup>
+    <PropertyGroup Condition=" Exists ( '$(FrameworkSdkPath)bin\NETFX 4.6.1 Tools\ildasm.exe' ) ">
+      <ILDasm>"$(FrameworkSdkPath)bin\NETFX 4.6.1 Tools\ildasm.exe" /nobar /linenum /output:"$(ILFile)" @(IntermediateAssembly->'"%(FullPath)"', ' ')</ILDasm>
+    </PropertyGroup>
+    <PropertyGroup Condition=" Exists ( '$(FrameworkSdkPath)bin\NETFX 4.6.2 Tools\ildasm.exe' ) ">
+      <ILDasm>"$(FrameworkSdkPath)bin\NETFX 4.6.2 Tools\ildasm.exe" /nobar /linenum /output:"$(ILFile)" @(IntermediateAssembly->'"%(FullPath)"', ' ')</ILDasm>
+    </PropertyGroup>
+    <Exec Command="$(ILDasm)" />
+    <ItemGroup>
+      <FileWrites Include="$(ILFile)" />
+      <FileWrites Include="$(ILResourceFile)" />
+    </ItemGroup>
+    <PropertyGroup>
+      <ILSource>$([System.IO.File]::ReadAllText($(ILFile)))</ILSource>
+      <Replacement>// method ${method} forwardref removed for IL import</Replacement>
+      <Pattern>\.method [^{}]+ cil managed forwardref[^}]+} // end of method (?&lt;method&gt;[^ \r\t\n]+)</Pattern>
+      <ILSource>$([System.Text.RegularExpressions.Regex]::Replace($(ILSource), $(Pattern), $(Replacement)))</ILSource>
+      <Pattern>\.method [^{}]+ cil managed[^\a]+"extern was not given a DllImport attribute"[^}]+} // end of method (?&lt;method&gt;[^ \r\t\n]+)</Pattern>
+      <ILSource>$([System.Text.RegularExpressions.Regex]::Replace($(ILSource), $(Pattern), $(Replacement)))</ILSource>
+    </PropertyGroup>
+    <WriteLinesToFile File="$(ILFile)" Lines="$(ILSource)" Overwrite="true" />
+    <PropertyGroup>
+      <ILSource />
+    </PropertyGroup>
+    <Delete Files="@(IntermediateAssembly)" />
+  </Target>
+  <Target Name="CoreCompileIL" Inputs="@(IL)" Outputs="@(IntermediateAssembly)">
+    <GetFrameworkPath>
+      <Output TaskParameter="Path" PropertyName="FrameworkPath" />
+    </GetFrameworkPath>
+    <PropertyGroup>
+      <ILAsm>"$(FrameworkPath)\ilasm.exe" /nologo /quiet /output:@(IntermediateAssembly->'"%(FullPath)"', ' ')</ILAsm>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(FileAlignment)' != '' ">
+      <ILAsm>$(ILAsm) /alignment=$(FileAlignment)</ILAsm>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(BaseAddress)' != '' ">
+      <ILAsm>$(ILAsm) /base=$(BaseAddress)</ILAsm>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(OutputType)' == 'Library' ">
+      <ILAsm>$(ILAsm) /dll</ILAsm>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(DebugType)' == 'pdbonly' ">
+      <ILAsm>$(ILAsm) /pdb</ILAsm>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(DebugType)' == 'full' ">
+      <ILAsm>$(ILAsm) /debug</ILAsm>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Optimize)' == 'true' ">
+      <ILAsm>$(ILAsm) /optimize</ILAsm>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Platform)' == 'x64' ">
+      <ILAsm>$(ILAsm) /pe64 /x64</ILAsm>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Platform)' == 'Itanium' ">
+      <ILAsm>$(ILAsm) /pe64 /itanium</ILAsm>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(AssemblyOriginatorKeyFile)' != '' ">
+      <ILAsm>$(ILAsm) /key:"$(AssemblyOriginatorKeyFile)"</ILAsm>
+    </PropertyGroup>
+    <PropertyGroup Condition=" Exists ( '$(ILResourceFile)' ) ">
+      <ILAsm>$(ILAsm) /resource:"$(ILResourceFile)"</ILAsm>
+    </PropertyGroup>
+    <PropertyGroup Condition=" Exists ( '$(ILFile)' ) ">
+      <ILAsm>$(ILAsm) "$(ILFile)"</ILAsm>
+    </PropertyGroup>
+    <Exec Command="$(ILAsm) @(IL->'&quot;%(FullPath)&quot;', ' ')" />
+    <ItemGroup>
+      <FileWrites Include="@(IntermediateAssembly->'%(RootDir)%(Directory)DesignTimeResolveAssemblyReferencesInput.cache', ' ')" />
+    </ItemGroup>
+    <Touch Files="$(ILFile)" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

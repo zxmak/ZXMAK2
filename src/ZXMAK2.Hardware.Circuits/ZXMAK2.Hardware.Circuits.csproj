@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{24F7E5E1-9524-41AA-93E6-95D9B10869A7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ZXMAK2.Hardware.Circuits</RootNamespace>
+    <AssemblyName>ZXMAK2.Hardware.Circuits</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\_bindebug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\_binrelease\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Ata\AtaDevice.cs" />
+    <Compile Include="Ata\AtaDeviceInfo.cs" />
+    <Compile Include="Ata\AtaPasser.cs" />
+    <Compile Include="Ata\AtaPort.cs" />
+    <Compile Include="Ata\AtaReg.cs" />
+    <Compile Include="Ata\AtaRegsUnion.cs" />
+    <Compile Include="Ata\Enums.cs" />
+    <Compile Include="Ata\PhysicalDeviceInfo.cs" />
+    <Compile Include="Fdd\Enums.cs" />
+    <Compile Include="NvramChip.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RtcChip.cs" />
+    <Compile Include="SecureDigital\SdCard.cs" />
+    <Compile Include="SecureDigital\SdCommand.cs" />
+    <Compile Include="SecureDigital\SdState.cs" />
+    <Compile Include="SecureDigital\SdStatus.cs" />
+    <Compile Include="Sound\IPsgChip.cs" />
+    <Compile Include="Sound\PsgChip.cs" />
+    <Compile Include="Sound\PanType.cs" />
+    <Compile Include="Sound\PsgRegId.cs" />
+    <Compile Include="Sound\AmpType.cs" />
+    <Compile Include="Sound\SoundTables.cs" />
+    <Compile Include="Utils.cs" />
+    <Compile Include="Fdd\Wd1793.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ZXMAK2.Crc\ZXMAK2.Crc.csproj">
+      <Project>{C89EFDAC-656D-4383-8B9C-590043BDBAE0}</Project>
+      <Name>ZXMAK2.Crc</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\ZXMAK2.Dependency\ZXMAK2.Dependency.csproj">
+      <Project>{BB32EB49-52FF-4976-9586-5C4E415CD730}</Project>
+      <Name>ZXMAK2.Dependency</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\ZXMAK2.Logging\ZXMAK2.Logging.csproj">
+      <Project>{B75EFD3C-BEC5-4090-AAFA-CC9E5906C876}</Project>
+      <Name>ZXMAK2.Logging</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\ZXMAK2.Model.Disk\ZXMAK2.Model.Disk.csproj">
+      <Project>{90D40289-355D-44B1-8572-B4E441280DA2}</Project>
+      <Name>ZXMAK2.Model.Disk</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.targets\Common.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

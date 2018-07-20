@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1D3FFF75-30F8-4E8A-B650-B7FB3DA9C776}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ZXMAK2.Resources</RootNamespace>
+    <AssemblyName>ZXMAK2.Resources</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\_bindebug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\_binrelease\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ResourceImages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ResourceImages.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Icons\DebuggerClose.png" />
+    <Content Include="Icons\HardwareTapeAutoplay.png" />
+    <Content Include="Icons\DebuggerBreak.png" />
+    <Content Include="Icons\DebuggerContinue.png" />
+    <Content Include="Icons\IconDebugger.ico" />
+    <Content Include="Icons\DebuggerShowBreakpoints.png" />
+    <Content Include="Icons\DebuggerShowNext.png" />
+    <Content Include="Icons\DebuggerStepInto.png" />
+    <Content Include="Icons\DebuggerStepOut.png" />
+    <Content Include="Icons\DebuggerStepOver.png" />
+    <Content Include="Icons\OsdFddRd.png" />
+    <Content Include="Icons\OsdFddWr.png" />
+    <Content Include="Icons\OsdHddRd.png" />
+    <Content Include="Icons\HardwareTapeNext.png" />
+    <Content Include="Icons\OsdPause.png" />
+    <Content Include="Icons\HardwareTapePlay.png" />
+    <Content Include="Icons\HardwareTapePrev.png" />
+    <Content Include="Icons\HardwareTapeRecord.png" />
+    <Content Include="Icons\HardwareTapeRewind.png" />
+    <Content Include="Icons\HardwareTapeTraps.png" />
+    <Content Include="Icons\HardwareTapePause.png" />
+    <Content Include="Icons\Stop_real_16x16.png" />
+    <Content Include="Icons\OsdTapeRd.png" />
+    <Content Include="Icons\IconApp.ico" />
+    <Content Include="Pictures\KeyboardHelp.png" />
+    <Content Include="Pictures\ZXLogo.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ResourceImages.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ResourceImages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.targets\Common.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

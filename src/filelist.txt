@@ -1,0 +1,8 @@
+ZXMAK2.exe
+Test.exe
+MACHINES.PAK
+ROMS.PAK
+boot.zip
+ZXMAK2.chm
+readme.txt
+history.txt

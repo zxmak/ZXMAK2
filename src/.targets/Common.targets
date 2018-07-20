@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <AssemblyVersion>2.9.3.7</AssemblyVersion>
+    </PropertyGroup>
+    
+    <!-- Uncomment for automatic set assembly version -->
+    <!--<Import Project="CommonAssemblyVersion.targets" />-->
+
+    <!--
+    <PropertyGroup Condition="'$(MSBuildProjectName)' != 'ZipLib'">
+        <RunCodeAnalysis>true</RunCodeAnalysis>
+        <CodeAnalysisRuleSet>$(SolutionDir).targets\ZXMAK2.ruleset</CodeAnalysisRuleSet>
+    </PropertyGroup>
+    -->
+</Project>

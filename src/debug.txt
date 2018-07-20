@@ -1,0 +1,12 @@
+
+Disable stop on the following exceptions:
+Microsoft.DirectX.DirectInput.OtherApplicationHasPriorityException
+Microsoft.DirectX.DirectInput.InputLostFocusException
+Microsoft.DirectX.DirectInput.NotAcquiredException
+Microsoft.DirectX.DirectInput.InputLostException
+
+
+debugger bug:
+Set BP on ADDR
+Load snapshot with state PC=ADDR
+Make sure BP didn't trigger

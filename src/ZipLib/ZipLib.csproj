@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{23BFF161-E4E8-4365-AC71-19A46E8C86E1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ZipLib</RootNamespace>
+    <AssemblyName>ZipLib</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\_bindebug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\_binrelease\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Checksums\Adler32.cs" />
+    <Compile Include="Checksums\CRC32.cs" />
+    <Compile Include="Checksums\IChecksum.cs" />
+    <Compile Include="Checksums\StrangeCRC.cs" />
+    <Compile Include="Core\FileSystemScanner.cs" />
+    <Compile Include="Core\INameTransform.cs" />
+    <Compile Include="Core\IScanFilter.cs" />
+    <Compile Include="Core\IScanner.cs" />
+    <Compile Include="Core\NameFilter.cs" />
+    <Compile Include="Core\PathFilter.cs" />
+    <Compile Include="Core\StreamUtils.cs" />
+    <Compile Include="Encryption\PkzipClassic.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SharpZipBaseException.cs" />
+    <Compile Include="Zip\Compression\Deflater.cs" />
+    <Compile Include="Zip\Compression\DeflaterConstants.cs" />
+    <Compile Include="Zip\Compression\DeflaterEngine.cs" />
+    <Compile Include="Zip\Compression\DeflaterHuffman.cs" />
+    <Compile Include="Zip\Compression\DeflaterPending.cs" />
+    <Compile Include="Zip\Compression\Inflater.cs" />
+    <Compile Include="Zip\Compression\InflaterDynHeader.cs" />
+    <Compile Include="Zip\Compression\InflaterHuffmanTree.cs" />
+    <Compile Include="Zip\Compression\PendingBuffer.cs" />
+    <Compile Include="Zip\Compression\Streams\DeflaterOutputStream.cs" />
+    <Compile Include="Zip\Compression\Streams\InflaterInputStream.cs" />
+    <Compile Include="Zip\Compression\Streams\OutputWindow.cs" />
+    <Compile Include="Zip\Compression\Streams\StreamManipulator.cs" />
+    <Compile Include="Zip\FastZip.cs" />
+    <Compile Include="Zip\IEntryFactory.cs" />
+    <Compile Include="Zip\ZipConstants.cs" />
+    <Compile Include="Zip\ZipEntry.cs" />
+    <Compile Include="Zip\ZipEntryFactory.cs" />
+    <Compile Include="Zip\ZipException.cs" />
+    <Compile Include="Zip\ZipExtraData.cs" />
+    <Compile Include="Zip\ZipFile.cs" />
+    <Compile Include="Zip\ZipHelperStream.cs" />
+    <Compile Include="Zip\ZipInputStream.cs" />
+    <Compile Include="Zip\ZipNameTransform.cs" />
+    <Compile Include="Zip\ZipOutputStream.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.targets\Common.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

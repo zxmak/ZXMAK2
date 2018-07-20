@@ -1,0 +1,54 @@
+<head>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<div id="heading">
+<p>Debugger Commands(command line)</p>
+</div>
+<br>
+When in debugger window you can use following commands(type in command line):<br>
+<ul>
+<li><b>ld</b>  - load memory or register with value<br></li>
+<li><b>ds <i>&lt;memory address&gt;</i></b>  - dissassemble memory starting at <i>&lt;memory address&gt;</i><br></li>
+<li><b>asm</b> - opens assembler window</li>
+<li><b>ge</b> - opens graphics editor</li>
+<li><b>trace <i>[on|off]</i></b> - starts(<i>on</i>)/stops(<i>off</i>) tracing(writing assembler instructions) to <i>trace.log</i> file. Operation will slow emulator performance. ROM is not traced !</li>
+</ul>
+<ul>
+<li><b>br</b> - define new breakpoint<br></li>
+<li><b>del <i>&lt;breakpoint number&gt;</i></b>  - delete breakpoint<br></li>
+<li><b>on <i>&lt;breakpoint number&gt;</i></b> - turn breakpoint on. This can be done also by doubleclicking on the breakpoint.<br></li>
+<li><b>off <i>&lt;breakpoint number&gt;</i></b> - turn breakpoint off(disable breakpoint). This can be done also by doubleclicking on the breakpoint.<br></li>
+<li><b>loadbrs <i>&lt;filepath&gt;</i></b>  - loads breakpoints from file<br></li>
+<li><b>savebrs <i>&lt;filepath&gt;</i></b> - save actual breakpoints to file<br></li>
+</ul>
+<br>
+<h4>NUMBERS:</h4>
+- number without prefix is considered as hexadecimal<br>
+- prefixes:
+<ul>
+<li>hexadecimal prefix is <b>'#'</b> or <b>'x'</b> or <b>'0x'</b><br></li>
+<li>binary prefix is <b>'%'</b></li>
+<li>decimal prefix is <b>'$'</b></li>
+</ul>
+<br>
+Examples:
+<ul>
+<li><b>br bc==#ffff</b> - break when register BC is equal to #FFFF(65535)</li>
+<li><b>br (pc) == #F3</b> - break when instruction 'DI'(opcode #F3) is to be executed</li>
+<li><b>br a==%101010</b> - break when register A(accumulator) will hold value %101010(42 decimal)</li>
+<li><b>br pc == 9C40 && DE==#FFFF</b> - multiconditional breakpoint, breaks when value in PC=40000 <b>AND</b> DE=#FFFF</li>
+<li><b>br pc == 9C40 && fZ==1</b> - multiconditional breakpoint, breaks when value in PC=40000 <b>AND</b> flag Z is set</li>
+<li><b>br memread #4000</b> - break when memory at address #4000 is to be read</li>
+<li><b>br memread 9C40 C350</b> - break when memory in range starting at address 40000 until 50000 is to be read</li>
+<li><b>br memwrite #4000</b> - break when memory at address #4000 is to be written</li>
+<li><b>br memwrite 9C40 EA60</b> - break when memory in range starting at address 40000 until 60000 is to be written</li>
+</ul>
+<ul>
+<li><b>ld pc, 3</b> - puts 3 into register PC(program counter) - this will cause execution on that adress(jump) directly.</li>
+<li><b>ld hl, (#9C40)</b> - fill HL register with value on adress #9C40(40000 decimal)</li>
+<li><b>ld hl, de</b> - fill HL register with value in register DE</li>
+<li><b>ld (#9C40), 5</b> - same as POKE 40000, 5</b>
+<li><b>ld (C350), $201 #C9AF #C350</b> - fills memory(starting at adress 50000) with bytes 201 #C9 #AF #C3 #50
+<li><b>ld (C350), "Hello there"</b> - fills memory(starting at adress 50000) with string "Hello there"
+</ul>
