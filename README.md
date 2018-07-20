@@ -1,5 +1,6 @@
 # ZXMAK2
-##ZX Spectrum Emulator - Virtual Machine
+
+## ZX Spectrum Emulator - Virtual Machine
 
 The project written in C# and needs only .NET framework 4 and DirectX 9.
 Managed DirectX was removed and replaced with direct calls to native DirectX.
@@ -13,6 +14,7 @@ Don't forgot to install DirectX 9!
 
 
 ![Screenshot](https://i.imgur.com/5KqlCWQ.png)
+
 
 ## Supported ZX Spectrum models
 
@@ -34,7 +36,7 @@ The following ZX Spectrum clones are supported:
 * LEC 48/528
 * Other (custom configuration and plugins, for example LEC mod)
 
-##History
+## History
 
 The project was previously hosted on CodePlex. 
 Here is the old link: https://archive.codeplex.com/?p=zxmak2
@@ -48,7 +50,7 @@ You may also be interested about this emulator history:
 - ZXMAK - first ZXMAK emulator written in C++, released in 2001-2003: http://zxmak.narod.ru/
 
 
-##What's new:
+## What's new:
 
 2.9.2.39319:
 - the last released version on CodePlex
