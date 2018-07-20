@@ -12,6 +12,9 @@ Full support for Windows XP/Vista/7/8/10 x86/x64.
 Don't forgot to install DirectX 9!
 
 
+![Screenshot](https://i.imgur.com/5KqlCWQ.png)
+
+
 The following ZX Spectrum clones are supported:
 * ZX Spectrum 48 (contended memory)
 * ZX Spectrum 128 (contended memory)
