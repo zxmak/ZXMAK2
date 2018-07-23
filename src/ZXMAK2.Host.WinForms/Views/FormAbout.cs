@@ -97,7 +97,7 @@ namespace ZXMAK2.Host.WinForms.Views
             this.lnkUrl.Size = new System.Drawing.Size(145, 13);
             this.lnkUrl.TabIndex = 13;
             this.lnkUrl.TabStop = true;
-            this.lnkUrl.Text = "http://zxmak2.codeplex.com";
+            this.lnkUrl.Text = "https://github.com/zxmak/ZXMAK2";
             this.lnkUrl.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkUrl_LinkClicked);
             // 
             // textBox1
