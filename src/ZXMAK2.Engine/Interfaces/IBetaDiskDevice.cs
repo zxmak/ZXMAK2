@@ -10,6 +10,6 @@ namespace ZXMAK2.Engine.Interfaces
         bool NoDelay { get; set; }
         bool LogIo { get; set; }
 
-        ISerializeManager LoadManager { get; }
+        ISerializeManager[] LoadManagers { get; }
 	}
 }

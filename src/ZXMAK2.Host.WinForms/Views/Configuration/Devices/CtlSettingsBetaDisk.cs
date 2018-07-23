@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.IO;
 using System.ComponentModel;
 using System.Windows.Forms;
@@ -113,7 +114,7 @@ namespace ZXMAK2.Host.WinForms.Views.Configuration.Devices
                 loadDialog.InitialDirectory = ".";
                 loadDialog.SupportMultiDottedExtensions = true;
                 loadDialog.Title = "Open...";
-                loadDialog.Filter = m_device.LoadManager.GetOpenExtFilter();
+                loadDialog.Filter = m_device.LoadManagers[drive].GetOpenExtFilter();
                 loadDialog.DefaultExt = ""; //m_betaDisk.BetaDisk.FDD[drive].Serializer.GetDefaultExtension();
                 loadDialog.FileName = "";
                 loadDialog.ShowReadOnly = true;
@@ -134,7 +135,7 @@ namespace ZXMAK2.Host.WinForms.Views.Configuration.Devices
         {
             OpenFileDialog loadDialog = sender as OpenFileDialog;
             if (loadDialog == null) return;
-            e.Cancel = !m_device.LoadManager.CheckCanOpenFileName(loadDialog.FileName);
+            e.Cancel = !m_device.LoadManagers.First().CheckCanOpenFileName(loadDialog.FileName);
         }
 
         private void chkPresent_CheckedChanged(object sender, EventArgs e)

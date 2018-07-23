@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using System.Linq;
+using System.Xml;
 using ZXMAK2.Engine;
 using ZXMAK2.Engine.Interfaces;
 using ZXMAK2.Engine.Entities;
@@ -32,13 +33,17 @@ namespace ZXMAK2.Hardware.Sprinter
             Category = BusDeviceCategory.Disk;
             Name = "FDD SPRINTER";
             Description = "Sprinter FDD controller WD1793";
-            LoadManager = new DiskLoadManager(_wd.FDD[0]);
+            LoadManagers = new ISerializeManager[_wd.FDD.Length];
+            for (var i = 0; i < LoadManagers.Length; i++)
+            {
+                LoadManagers[i] = new DiskLoadManager(_wd.FDD[i]);
+            }
         }
 
 
         #region Properties
 
-        public ISerializeManager LoadManager { get; private set; }
+        public ISerializeManager[] LoadManagers { get; private set; }
 
         public bool OpenPorts { get; set; }
 
@@ -69,7 +74,7 @@ namespace ZXMAK2.Hardware.Sprinter
             bmgr.Events.SubscribeNmiRq(BusNmiRq);
             bmgr.Events.SubscribeNmiAck(BusNmiAck);
 
-            foreach (var fs in LoadManager.GetSerializers())
+            foreach (var fs in LoadManagers.First().GetSerializers())
             {
                 bmgr.AddSerializer(fs);
             }

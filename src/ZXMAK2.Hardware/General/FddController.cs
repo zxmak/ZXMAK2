@@ -39,12 +39,16 @@ namespace ZXMAK2.Hardware.General
             Name = "FDD WD1793";
             Description = "FDD controller WD1793\r\nBDI-ports compatible\r\nPorts active when DOSEN=1 or SYSEN=1";
 
-            LoadManager = new DiskLoadManager(m_wd.FDD[0]);
+            LoadManagers = new ISerializeManager[m_wd.FDD.Length];
+            for (var i = 0; i < LoadManagers.Length; i++)
+            {
+                LoadManagers[i] = new DiskLoadManager(m_wd.FDD[i]);
+            }
             CreateViewHolder();
         }
 
 
-        public ISerializeManager LoadManager { get; private set; }
+        public ISerializeManager[] LoadManagers { get; private set; }
         
 
         #region IBusDevice
@@ -62,7 +66,7 @@ namespace ZXMAK2.Hardware.General
             
             OnSubscribeIo(bmgr);
 
-            foreach (var fs in LoadManager.GetSerializers())
+            foreach (var fs in LoadManagers.First().GetSerializers())
             {
                 bmgr.AddSerializer(fs);
             }
