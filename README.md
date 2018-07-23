@@ -71,3 +71,8 @@ You may also be interested about this emulator history:
 - moved a little change for joystick bug from MDX version (the last commit on CodePlex). I'm not sure if it can be reproduced with native DirectX. But moved this fix, because the fix is pretty easy.
 - due to remove of MDX dependency, I set useLegacyV2RuntimeActivationPolicy="false" in ZXMAK2.exe.config, may be it will improve performance.
 - the code moved to GITHUB  :)
+
+2.9.3.8:
+- added Intel HEX file loader (load data into zx spectrum address space)
+- fixed multi-drive trdos support
+
