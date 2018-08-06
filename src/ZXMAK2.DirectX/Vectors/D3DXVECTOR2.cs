@@ -52,7 +52,7 @@ namespace ZXMAK2.DirectX.Vectors
 
         public override string ToString()
         {
-            return string.Format("[RawVector2f] {0}; {1}", X, Y);
+            return string.Format("[D3DXVECTOR2] {0}; {1}", X, Y);
         }
 
         public override bool Equals(object obj)

@@ -78,7 +78,7 @@ namespace ZXMAK2.DirectX.Vectors
 
         public override string ToString()
         {
-            return string.Format("[RawRectangle] {0}; {1}", Left, Right, Top, Bottom);
+            return string.Format("[D3DRECT] {0}; {1}", Left, Right, Top, Bottom);
         }
 
         public override bool Equals(object obj)
