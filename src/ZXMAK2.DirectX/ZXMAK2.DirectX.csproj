@@ -38,6 +38,7 @@
   <ItemGroup>
     <Compile Include="ComObject.cs" />
     <Compile Include="Direct3D\AdapterInformation.cs" />
+    <Compile Include="Vectors\Crc32.cs" />
     <Compile Include="Vectors\CustomVertex.cs" />
     <Compile Include="Direct3D\D3DADAPTER_IDENTIFIER9.cs" />
     <Compile Include="Direct3D\D3DBACKBUFFER_TYPE.cs" />

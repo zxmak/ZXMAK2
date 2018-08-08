@@ -36,27 +36,6 @@ namespace ZXMAK2.DirectX.Vectors
         public int Bottom;
 
 
-        public bool IsEmpty
-        {
-            get 
-            {
-                return this.Left == 0 && 
-                    this.Top == 0 && 
-                    this.Right == 0 && 
-                    this.Bottom == 0;
-            }
-        }
-
-        public int Width 
-        { 
-            get { return Left <= Right ? Right - Left : Left - Right; } 
-        }
-
-        public int Height
-        {
-            get { return Top <= Bottom ? Bottom - Top : Top - Bottom; }
-        }
-
         public D3DRECT(int left, int top, int right, int bottom)
         {
             this.Left = left;
@@ -65,6 +44,8 @@ namespace ZXMAK2.DirectX.Vectors
             this.Bottom = bottom;
         }
 
+
+        #region Equality
 
         public static bool operator ==(D3DRECT left, D3DRECT right)
         {
@@ -78,7 +59,7 @@ namespace ZXMAK2.DirectX.Vectors
 
         public override string ToString()
         {
-            return string.Format("[D3DRECT] {0}; {1}", Left, Right, Top, Bottom);
+            return string.Format("[D3DRECT] {0}; {1}; {2}; {3}", Left, Top, Right, Bottom);
         }
 
         public override bool Equals(object obj)
@@ -102,6 +83,31 @@ namespace ZXMAK2.DirectX.Vectors
                 (Bottom.GetHashCode() << 7);
         }
 
-        public static readonly D3DRECT Empty = new D3DRECT(0, 0, 0, 0);
+        #endregion Equality
+
+
+        public bool IsEmpty
+        {
+            get
+            {
+                return this.Left == 0 &&
+                    this.Top == 0 &&
+                    this.Right == 0 &&
+                    this.Bottom == 0;
+            }
+        }
+
+        public int Width
+        {
+            get { return Left <= Right ? Right - Left : Left - Right; }
+        }
+
+        public int Height
+        {
+            get { return Top <= Bottom ? Bottom - Top : Top - Bottom; }
+        }
+
+
+        public static readonly D3DRECT Zero = new D3DRECT(0, 0, 0, 0);
     }
 }

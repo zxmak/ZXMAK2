@@ -31,20 +31,13 @@ namespace ZXMAK2.DirectX.Vectors
         private int _boolValue;
 
 
-        public static implicit operator bool(RawBool booleanValue)
-        {
-            return booleanValue._boolValue != 0;
-        }
-
-        public static implicit operator RawBool(bool boolValue)
-        {
-            return new RawBool(boolValue);
-        }
-
         public RawBool(bool boolValue)
         {
             _boolValue = boolValue ? 1 : 0;
         }
+
+
+        #region Equality
 
         public static bool operator ==(RawBool left, RawBool right)
         {
@@ -75,6 +68,19 @@ namespace ZXMAK2.DirectX.Vectors
         public override int GetHashCode()
         {
             return _boolValue.GetHashCode();
+        }
+
+        #endregion Equality
+
+        
+        public static implicit operator bool(RawBool booleanValue)
+        {
+            return booleanValue._boolValue != 0;
+        }
+
+        public static implicit operator RawBool(bool boolValue)
+        {
+            return new RawBool(boolValue);
         }
     }
 }

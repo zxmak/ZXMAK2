@@ -80,7 +80,7 @@ namespace ZXMAK2.DirectX.Direct3D
         }
 
         /// <unmanaged>int ID3DXFont::DrawTextW([In] ID3DXSprite* pSprite,[In] const wchar_t* pString,[In] int Count,[In] void* pRect,[In] unsigned int Format,[In] D3DCOLOR Color)</unmanaged>	
-        private unsafe int DrawText(D3DXSprite sprite, string text, int count, IntPtr rectRef, int format, uint color)
+        private unsafe int DrawText(D3DXSprite sprite, string text, int count, IntPtr rectRef, int format, D3DCOLOR color)
         {
 	        var pString = Marshal.StringToHGlobalUni(text);
             //result = calli(System.Int32(System.Void*,System.Void*,System.Void*,System.Int32,System.Void*,System.Int32,SharpDX.Mathematics.Interop.RawColorBGRA), this._nativePointer, (void*)((spriteRef == null) ? IntPtr.Zero : spriteRef.NativePointer), (void*)intPtr, count, (void*)rectRef, format, color, *(*(IntPtr*)this._nativePointer + (IntPtr)15 * (IntPtr)sizeof(void*)));
@@ -98,13 +98,13 @@ namespace ZXMAK2.DirectX.Direct3D
         public unsafe D3DRECT MeasureText(D3DXSprite sprite, string text, DT drawFlags)
         {
             D3DRECT rect;
-            int color = -1;
+            D3DCOLOR color = -1;
             int format = (int)(drawFlags | DT.DT_CALCRECT);
-            DrawText(sprite, text, text.Length, (IntPtr)(void*)&rect, format, *(uint*)&color);
+            DrawText(sprite, text, text.Length, (IntPtr)(void*)&rect, format, color);
             return rect;
         }
 
-        public unsafe int DrawText(D3DXSprite sprite, string text, D3DRECT rect, DT drawFlags, uint color)
+        public unsafe int DrawText(D3DXSprite sprite, string text, D3DRECT rect, DT drawFlags, D3DCOLOR color)
         {
             var result = DrawText(sprite, text, text.Length, (IntPtr)(void*)&rect, (int)drawFlags, color);
             if (result == 0)

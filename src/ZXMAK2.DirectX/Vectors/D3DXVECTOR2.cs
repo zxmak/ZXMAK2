@@ -33,12 +33,15 @@ namespace ZXMAK2.DirectX.Vectors
         public float X;
         public float Y;
 
+        
         public D3DXVECTOR2(float x, float y)
         {
             this.X = x;
             this.Y = y;
         }
 
+
+        #region Equality
 
         public static bool operator ==(D3DXVECTOR2 left, D3DXVECTOR2 right)
         {
@@ -71,7 +74,9 @@ namespace ZXMAK2.DirectX.Vectors
                 (Y.GetHashCode() << 16);
         }
 
+        #endregion Equality
 
-        public static readonly D3DXVECTOR2 Empty = new D3DXVECTOR2(0, 0);
+
+        public static readonly D3DXVECTOR2 Zero = new D3DXVECTOR2(0, 0);
     }
 }

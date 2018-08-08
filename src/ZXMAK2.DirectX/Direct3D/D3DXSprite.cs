@@ -38,7 +38,7 @@ namespace ZXMAK2.DirectX.Direct3D
 
 
         /// <unmanaged>HRESULT ID3DXSprite::Draw([In] IDirect3DTexture9* pTexture,[In] const void* pSrcRect,[In] const void* pCenter,[In] const void* pPosition,[In] D3DCOLOR Color)</unmanaged>	
-        private unsafe HRESULT Draw(Direct3DTexture9 texture, IntPtr srcRect, IntPtr center, IntPtr position, uint color)
+        private unsafe HRESULT Draw(Direct3DTexture9 texture, IntPtr srcRect, IntPtr center, IntPtr position, D3DCOLOR color)
         {
 	        //calli(System.Int32(System.Void*,System.Void*,System.Void*,System.Void*,System.Void*,SharpDX.Mathematics.Interop.RawColorBGRA), this._nativePointer, (void*)((textureRef == null) ? IntPtr.Zero : textureRef.NativePointer), (void*)srcRectRef, (void*)centerRef, (void*)positionRef, color, *(*(IntPtr*)this._nativePointer + (IntPtr)9 * (IntPtr)sizeof(void*))).CheckError();
             return (HRESULT)NativeHelper.CalliInt32(9, _nativePointer,
@@ -74,7 +74,7 @@ namespace ZXMAK2.DirectX.Direct3D
             }
         }
 
-        public unsafe HRESULT Draw(Direct3DTexture9 texture, D3DRECT? rect, D3DXVECTOR3? center, D3DXVECTOR3? position, uint color)
+        public unsafe HRESULT Draw(Direct3DTexture9 texture, D3DRECT? rect, D3DXVECTOR3? center, D3DXVECTOR3? position, D3DCOLOR color)
         {
             D3DRECT vRect = rect.HasValue ? rect.Value : default(D3DRECT);
             D3DXVECTOR3 vCenter = center.HasValue ? center.Value : default(D3DXVECTOR3);

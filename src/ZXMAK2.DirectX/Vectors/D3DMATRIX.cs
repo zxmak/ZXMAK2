@@ -28,13 +28,14 @@ namespace ZXMAK2.DirectX.Vectors
 {
     // d3d9types.h
     [StructLayout(LayoutKind.Sequential)]
-    public struct D3DMATRIX
+    public struct D3DMATRIX : IEquatable<D3DMATRIX>
     {
         public float _11, _12, _13, _14;
         public float _21, _22, _23, _24;
         public float _31, _32, _33, _34;
         public float _41, _42, _43, _44;
 
+        
         public D3DMATRIX(
             float m11, float m12, float m13, float m14,
             float m21, float m22, float m23, float m24,
@@ -46,6 +47,62 @@ namespace ZXMAK2.DirectX.Vectors
             _31 = m31; _32 = m32; _33 = m33; _34 = m34;
             _41 = m41; _42 = m42; _43 = m43; _44 = m44;
         }
+
+
+        #region Equality
+
+        public static bool operator ==(D3DMATRIX left, D3DMATRIX right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(D3DMATRIX left, D3DMATRIX right)
+        {
+            return !left.Equals(right);
+        }
+
+        public override string ToString()
+        {
+            var values = new float[] {
+                _11, _12, _13, _14,
+                _21, _22, _23, _24,
+                _31, _32, _33, _34,
+                _41, _42, _43, _44,
+            };
+            return string.Format("[D3DMATRIX] {0}", string.Join("; ", values));
+        }
+
+        public override bool Equals(object obj)
+        {
+            return (obj is D3DMATRIX) && obj.Equals(this);
+        }
+
+        public unsafe bool Equals(D3DMATRIX other)
+        {
+            fixed (void* pThis = &this)
+            {
+                uint* pData1 = (uint*)pThis;
+                uint* pData2 = (uint*)&other;
+                for (var i = 0; i < 4 * 4; i++)
+                {
+                    if (*pData1 != *pData2) return false;
+                    pData1++;
+                    pData2++;
+                }
+                return true;
+            }
+        }
+
+        public unsafe override int GetHashCode()
+        {
+            fixed (void* pData = &this)
+            {
+                return (int)Crc32.Compute((byte*)pData, 4 * 4 * sizeof(float));
+            }
+        }
+
+        #endregion Equality
+
 
         public static unsafe D3DMATRIX* Transformation2D(
             D3DMATRIX* pOut, D3DXVECTOR2* pScalingCenter,
@@ -59,5 +116,13 @@ namespace ZXMAK2.DirectX.Vectors
                 pRotationCenter, Rotation,
                 pTranslation);
         }
+
+
+
+        public static readonly D3DMATRIX Identity = new D3DMATRIX(
+            1, 0, 0, 0,
+            0, 1, 0, 0,
+            0, 0, 1, 0,
+            0, 0, 0, 1);
     }
 }

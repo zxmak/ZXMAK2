@@ -20,20 +20,90 @@
  *  Date: 15.07.2018
  */
 using System;
+using System.Runtime.InteropServices;
 
 
 namespace ZXMAK2.DirectX.Vectors
 {
-    public static class D3DCOLOR
+    [StructLayout(LayoutKind.Sequential)]
+    public struct D3DCOLOR : IEquatable<D3DCOLOR>
     {
-        public static uint D3DCOLOR_ARGB(byte a, byte r, byte g, byte b)
+        public uint _value;
+
+        
+        public D3DCOLOR(uint value)
+        {
+            _value = value;
+        }
+
+        
+        #region Equality
+
+        public static bool operator ==(D3DCOLOR left, D3DCOLOR right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(D3DCOLOR left, D3DCOLOR right)
+        {
+            return !left.Equals(right);
+        }
+
+        public override string ToString()
+        {
+            return string.Format("[D3DCOLOR] 0x{0:x}", _value);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return (obj is D3DCOLOR) && obj.Equals(this);
+        }
+
+        public bool Equals(D3DCOLOR other)
+        {
+            return _value == other._value;
+        }
+
+        public override int GetHashCode()
+        {
+            return _value.GetHashCode();
+        }
+
+        #endregion Equality
+
+
+
+        public static explicit operator int(D3DCOLOR color)
+        {
+            return (int)color._value;
+        }
+
+        public static explicit operator uint(D3DCOLOR color)
+        {
+            return color._value;
+        }
+
+        public static implicit operator D3DCOLOR(uint color)
+        {
+            return new D3DCOLOR(color);
+        }
+
+        public static implicit operator D3DCOLOR(int color)
+        {
+            return new D3DCOLOR((uint)color);
+        }
+
+
+        /// <unmanaged>D3DCOLOR_ARGB</unmanaged>
+        public static D3DCOLOR ARGB(byte a, byte r, byte g, byte b)
         {
             return (uint)((a << 24) | (r << 16) | (g << 8) | (b));
         }
 
-        public static uint D3DCOLOR_XRGB(byte r, byte g, byte b)
+        /// <unmanaged>D3DCOLOR_XRGB</unmanaged>
+        public static D3DCOLOR XRGB(byte r, byte g, byte b)
         {
-            return D3DCOLOR_ARGB(0xff, r, g, b);
+            return D3DCOLOR.ARGB(0xff, r, g, b);
         }
     }
 }

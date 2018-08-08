@@ -38,7 +38,7 @@ namespace ZXMAK2.DirectX.Direct3D
         }
 
         /// <unmanaged>HRESULT IDirect3DDevice9::Clear([In] unsigned int Count,[In, Buffer, Optional] const D3DRECT* pRects,[In] D3DCLEAR Flags,[In] D3DCOLOR Color,[In] float Z,[In] unsigned int Stencil)</unmanaged>	
-        private unsafe HRESULT Clear_(int count, D3DRECT[] rectsRef, D3DCLEAR flags, uint color, float z, int stencil)
+        private unsafe HRESULT Clear_(int count, D3DRECT[] rectsRef, D3DCLEAR flags, D3DCOLOR color, float z, int stencil)
         {
             fixed (void* pRects = rectsRef)
             {
@@ -134,7 +134,7 @@ namespace ZXMAK2.DirectX.Direct3D
             return new Direct3DSwapChain9(nativePointer);
         }
         
-        public HRESULT Clear(D3DCLEAR clearFlags, uint color, float zdepth, int stencil)
+        public HRESULT Clear(D3DCLEAR clearFlags, D3DCOLOR color, float zdepth, int stencil)
         {
             return Clear_(0, null, clearFlags, color, zdepth, stencil);
         }
