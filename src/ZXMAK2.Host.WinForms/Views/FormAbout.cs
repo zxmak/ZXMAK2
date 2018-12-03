@@ -94,7 +94,7 @@ namespace ZXMAK2.Host.WinForms.Views
             this.lnkUrl.AutoSize = true;
             this.lnkUrl.Location = new System.Drawing.Point(255, 51);
             this.lnkUrl.Name = "lnkUrl";
-            this.lnkUrl.Size = new System.Drawing.Size(145, 13);
+            this.lnkUrl.Size = new System.Drawing.Size(174, 13);
             this.lnkUrl.TabIndex = 13;
             this.lnkUrl.TabStop = true;
             this.lnkUrl.Text = "https://github.com/zxmak/ZXMAK2";
