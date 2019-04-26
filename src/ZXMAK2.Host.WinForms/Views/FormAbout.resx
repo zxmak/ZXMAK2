@@ -117,13 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="buttonOk.Locked" type="System.Boolean, mscorlib">
+  <metadata name="buttonOk.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
-  </data>
-  <data name="buttonUpdate.Locked" type="System.Boolean, mscorlib">
+  </metadata>
+  <metadata name="buttonUpdate.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
-  </data>
+  </metadata>
   <data name="textBox1.Text" xml:space="preserve">
     <value>Copyright 2001 - 2018 Alex Makeev
  
@@ -150,7 +149,7 @@ retain that copyright.
 
 Portions of this software are copyright © SMT (author of UnrealSpeccy emulator)
 Portions of this software are copyright © Hard/WCG (Дмитрий Михальченков)
-Portions of this software are copyright © ZEK
+Portions of this software are copyright © ZEK (Демьяненко Дмитрий)
 Portions of this software are copyright © Eltaron (Alexander Tsidaev)
 </value>
   </data>

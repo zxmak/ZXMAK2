@@ -308,7 +308,14 @@ namespace ZXMAK2.Host.WinForms.Mdx
             catch (Exception ex)
             {
                 Logger.Fatal(ex);
-                ErrorMessage = string.Format("{0}: {1}", ex.GetType(), ex.Message);
+                if (ex.Message.Contains("d3dx9_"))
+                {
+                    ErrorMessage = "Look in the browser, install DirectX9 end user runtime and restart emulator";
+                    System.Diagnostics.Process.Start("http://www.microsoft.com/download/en/details.aspx?id=35");
+                } else
+                {
+                    ErrorMessage = string.Format("{0}: {1}", ex.GetType(), ex.Message);
+                }
             }
         }
 
