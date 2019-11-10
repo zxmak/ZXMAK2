@@ -1,59 +1,30 @@
 ﻿using System;
-using ZXMAK2.Engine.Interfaces;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using ZXMAK2.Engine.Entities;
-using ZXMAK2.Engine.Cpu;
-
+using ZXMAK2.Engine.Interfaces;
 
 namespace ZXMAK2.Hardware.Quorum
 {
-    public class MemoryQuorum256 : MemoryBase
+    public class MemoryQuorum256 : MemoryQuorum
     {
-        #region Constants
-
-        private const int Q_F_RAM = 0x01;
-        private const int Q_RAM_8 = 0x08;
-        private const int Q_B_ROM = 0x20;
-        private const int Q_BLK_WR = 0x40;
-        private const int Q_TR_DOS = 0x80;
-
-        #endregion Constants
-
-
         #region Fields
-
-        private CpuUnit m_cpu;
         private bool m_lock;
-
-        #endregion Fields
-
+        #endregion
 
         public MemoryQuorum256()
-            : base("Quorum", 4, 16)
+            : base("Quorum128", 4, 16) // Quorum 256 does not use a separate ROM set
         {
             Name = "QUORUM 256K";
         }
-
 
         #region IBusDevice
 
         public override void BusInit(IBusManager bmgr)
         {
-            m_cpu = bmgr.CPU;
-
             bmgr.Events.SubscribeWrIo(0x801A, 0x7FFD & 0x801A, BusWritePort7FFD);
-            bmgr.Events.SubscribeWrIo(0x0099, 0x0000 & 0x0099, BusWritePort0000);
 
-            bmgr.Events.SubscribeRdMemM1(0xFF00, 0x3D00, BusReadMem3DXX_M1);
-            bmgr.Events.SubscribeRdMemM1(0xC000, 0x4000, BusReadMemRam);
-            bmgr.Events.SubscribeRdMemM1(0xC000, 0x8000, BusReadMemRam);
-            bmgr.Events.SubscribeRdMemM1(0xC000, 0xC000, BusReadMemRam);
-
-            bmgr.Events.SubscribeReset(BusReset);
-            bmgr.Events.SubscribeNmiRq(BusNmiRq);
-            bmgr.Events.SubscribeNmiAck(BusNmiAck);
-
-            // Subscribe before MemoryBase.BusInit 
-            // to handle memory switches before read
             base.BusInit(bmgr);
         }
 
@@ -156,46 +127,6 @@ namespace ZXMAK2.Hardware.Quorum
                 CMR0 = value;
             }
         }
-
-        protected virtual void BusWritePort0000(ushort addr, byte value, ref bool handled)
-        {
-            //LogAgent.Info("PC: #{0:X4}  CMR1 <- #{1:X2}", m_cpu.regs.PC, value);
-            CMR1 = value;
-        }
-
-        protected virtual void BusReadMem3DXX_M1(ushort addr, ref byte value)
-        {
-            if (IsRom48)
-            {
-                DOSEN = true;
-            }
-        }
-
-        protected virtual void BusReadMemRam(ushort addr, ref byte value)
-        {
-            if (DOSEN)
-            {
-                DOSEN = false;
-            }
-        }
-
-        protected virtual void BusReset()
-        {
-            DOSEN = false;
-            CMR0 = 0;
-            CMR1 = 0;
-        }
-
-        protected virtual void BusNmiRq(BusCancelArgs e)
-        {
-            //e.Cancel = DOSEN;
-        }
-
-        protected virtual void BusNmiAck()
-        {
-            CMR1 = 0x00;
-        }
-
         #endregion
     }
 }

@@ -104,7 +104,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Quorum\FddControllerQuorum.cs" />
     <Compile Include="Quorum\KeyboardQuorum.cs" />
+    <Compile Include="Quorum\MemoryQuorum.cs" />
     <Compile Include="Quorum\MemoryQuorum256.cs" />
+    <Compile Include="Quorum\MemoryQuorum64.cs" />
     <Compile Include="Quorum\UlaQuorum.cs" />
     <Compile Include="RomPack.cs" />
     <Compile Include="Scorpion\MemoryScorpion256.cs" />
