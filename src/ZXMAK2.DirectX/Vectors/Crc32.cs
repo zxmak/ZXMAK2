@@ -27,20 +27,18 @@ namespace ZXMAK2.DirectX.Vectors
     // Helper for entity hash calculation
     internal class Crc32
     {
-        private const uint Polynome = 0xedb88320u;
-
-        static readonly uint[] _table;
+        static readonly uint[] _table = new uint[256];
 
         static Crc32()
         {
-            _table = new uint[256];
-            uint temp = 0;
             for (uint i = 0; i < _table.Length; i++)
             {
-                temp = i;
+                uint temp = i;
                 for (int j = 8; j > 0; j--)
                 {
-                    temp = (temp & 1) == 0 ? temp >> 1 : (uint)((temp >> 1) ^ Polynome);
+                    uint msk = 0 - (temp & 1);
+                    temp >>= 1;
+                    temp ^= msk & 0xedb88320u;
                 }
                 _table[i] = temp;
             }
@@ -51,15 +49,14 @@ namespace ZXMAK2.DirectX.Vectors
             uint crc = 0xffffffffu;
             for (int i = 0; i < length; i++)
             {
-                var index = (byte)(crc ^ data[i]);
-                crc = (uint)((crc >> 8) ^ _table[index]);
+                crc = (crc >> 8) ^ _table[(byte)(crc ^ data[i])];
             }
             return ~crc;
         }
 
         public static unsafe uint Compute(byte[] data, int offset, int length)
         {
-            if (data.Length >= offset + length)
+            if (data.Length > offset + length)
                 throw new IndexOutOfRangeException();
             fixed (byte* pData = data)
             {
