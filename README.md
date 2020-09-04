@@ -30,6 +30,7 @@ The following ZX Spectrum clones are supported:
 * PROFI 3.xx
 * PROFI 5.xx
 * SPRINTER (except spectrum config)
+* QUORUM 64
 * QUORUM 256
 * Leningrad 1
 * BYTE 48K
