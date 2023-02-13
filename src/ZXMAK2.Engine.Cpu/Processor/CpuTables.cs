@@ -74,6 +74,14 @@ namespace ZXMAK2.Engine.Cpu.Processor
                 var val = (byte)((i >> 8) - (i & 0xFF) - ((Sbcf[i] & CpuFlags.H) >> 4));
                 Cpf8b[i] = (byte)((Sbcf[i] & CpuFlags.NotPCF3F5) + (val & CpuFlags.F3) + ((val << 4) & CpuFlags.F5));
             }
+            
+            Parity = new byte[256];
+            for (var i = 0; i < Parity.Length; i++)
+            {
+                // Bit Twiddling Hacks: Compute parity in parallel, 8-bit
+                var p = (0x6996 >> ((i ^ (i >> 4)) & 0xf)) & 1; 
+                Parity[i] = p == 0 ? CpuFlags.P : (byte)0;
+            }
         }
 
         private static byte[] CreateLogf()
@@ -129,6 +137,7 @@ namespace ZXMAK2.Engine.Cpu.Processor
         public static readonly byte[] Sbcf;    // flags for sub and sbc
         public static readonly byte[] Cpf;     // flags for cp
         public static readonly byte[] Cpf8b;   // flags for cpi(r)/cpd(r)
+        public static readonly byte[] Parity;  // parity calculator
 
 
         public static readonly byte[] Rlcf = new byte[0x100]   // credits to SMT (Unreal)

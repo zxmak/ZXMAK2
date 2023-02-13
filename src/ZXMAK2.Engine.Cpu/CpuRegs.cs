@@ -94,6 +94,11 @@ namespace ZXMAK2.Engine.Cpu
         [FieldOffset(26)]
         public byte ML;
 
+        [FieldOffset(23)]
+        public byte PCH = 0;
+        [FieldOffset(22)]
+        public byte PCL = 0;
+
 
         #region Access Lamda Generators
         

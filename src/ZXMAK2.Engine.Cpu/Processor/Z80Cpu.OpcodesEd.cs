@@ -195,7 +195,7 @@ namespace ZXMAK2.Engine.Cpu.Processor
             if ((CpuTables.Logf[(flgtmp & 0x07) ^ regs.B] & CpuFlags.P) != 0) regs.F |= CpuFlags.P;
             if (flgtmp < val) regs.F |= CpuFlags.HC;
             if ((val & 0x80) != 0) regs.F |= CpuFlags.N;
-
+            
             Tact++; // ?? really?
         }
 
@@ -213,8 +213,7 @@ namespace ZXMAK2.Engine.Cpu.Processor
             regs.BC--;
             val += regs.A;
 
-            regs.F = (byte)((regs.F & CpuFlags.NotHPNF3F5) |
-                (val & CpuFlags.F3) | ((val << 4) & CpuFlags.F5));
+            regs.F &= CpuFlags.NotHPNF3F5;
             if (regs.BC != 0)
             {
                 WRNOMREQ(regs.DE); Tact++;
@@ -225,7 +224,15 @@ namespace ZXMAK2.Engine.Cpu.Processor
                 regs.PC--;
                 regs.MW = regs.PC;
                 regs.PC--;
+
+                // YF = PCi.13; XF = PCi.11
+                regs.F |= (byte)(regs.PCH & CpuFlags.F3F5);
                 regs.F |= CpuFlags.P;
+            }
+            else
+            {
+                // YF = PCi.13; XF = PCi.11
+                regs.F |= (byte)((val & CpuFlags.F3) | ((val << 4) & CpuFlags.F5));
             }
             regs.HL++;
             regs.DE++;
@@ -261,6 +268,10 @@ namespace ZXMAK2.Engine.Cpu.Processor
                     regs.PC--;
                     regs.MW = regs.PC;
                     regs.PC--;
+
+                    // YF = PCi.13; XF = PCi.11
+                    regs.F &= CpuFlags.NotF3F5;
+                    regs.F |= (byte)(regs.PCH & CpuFlags.F3F5);
                 }
             }
             regs.HL++;
@@ -270,15 +281,20 @@ namespace ZXMAK2.Engine.Cpu.Processor
         {
             // B==0 => 16T (4, 5, 3, 4)
             // B!=0 => 21T (4, 5, 3, 4, 5)
-
+            
             RDNOMREQ(regs.IR); Tact++;
 
-            regs.MW = (ushort)(regs.BC + 1);
             var val = RDPORT(regs.BC); Tact += 3;
 
-            WRMEM(regs.HL, val); Tact += 3;
-            regs.B = ALU_DECR(regs.B);
-            Tact++; // ?? really?
+            var nf = (byte)((val >> 6) & CpuFlags.N);
+            var t = val + ((regs.C + 1) & 0xff);
+            var hcf = t > 255 ? CpuFlags.HC : 0;
+
+            WRMEM(regs.HL++, val); Tact += 3;
+            regs.MW = (ushort)(regs.BC + 1);
+
+            regs.B--; Tact++;
+            var pf = CpuTables.Parity[(t & 7) ^ regs.B];
 
             if (regs.B != 0)
             {
@@ -288,10 +304,45 @@ namespace ZXMAK2.Engine.Cpu.Processor
                 WRNOMREQ(regs.HL); Tact++;
                 WRNOMREQ(regs.HL); Tact++;
                 regs.PC -= 2;
-                regs.F |= CpuFlags.P;
+
+                regs.F = (byte)(
+                                                    /* ZF = 0			*/
+			        (regs.B & CpuFlags.S)	   |    /* SF = Bo.7		*/
+			        (regs.PCH & CpuFlags.F3F5) |    /* YF = PCi.13; XF = PCi.11 */
+			        nf);                            /* NF = IO.7		*/
+                if (hcf != 0)
+                {
+                    regs.F |= CpuFlags.C;
+                    if ((val & 0x80) != 0)
+                    {
+                        // PF = PF ^ Parity((B - 1) & 0x7) ^ 1;
+                        // HF = (B & 0x0F) == 0x00;
+                        regs.F |= (byte)(pf ^ CpuTables.Parity[(regs.B - 1) & 7] ^ CpuFlags.P);
+                        if ((regs.B & 0x0f) == 0x00)
+                            regs.F |= CpuFlags.H;
+                    }
+                    else
+                    {
+                        // PF = PF ^ Parity((B + 1) & 0x7) ^ 1;
+                        // HF = (B & 0x0F) == 0x0F;
+                        regs.F |= (byte)(pf ^ CpuTables.Parity[(regs.B + 1) & 7] ^ CpuFlags.P);
+                        if ((regs.B & 0x0f) == 0x0f)
+                            regs.F |= CpuFlags.H;
+                    }
+                }
+                else
+                {
+                    // PF = PF ^ Parity(B & 0x7) ^ 1;
+                    regs.F |= (byte)(pf ^ CpuTables.Parity[regs.B & 7] ^ CpuFlags.P);
+                }
             }
-            else regs.F &= CpuFlags.NotP;
-            regs.HL++;
+            else
+            {
+                regs.F = (byte)(CpuFlags.Z  | /* ZF = 1; SF, YF, XF = 0     */
+		            hcf | /* HF, CF = T > 255	    */
+		            pf  | /* PF = ((T & 7) ^ Bo).parity */
+		            nf);   /* NF = IO.7		    */
+            }
         }
 
         private void ED_OTIR(byte cmd)  // OTIR [16T/21T]
@@ -301,13 +352,19 @@ namespace ZXMAK2.Engine.Cpu.Processor
 
             RDNOMREQ(regs.IR); Tact++;
 
-            regs.B = ALU_DECR(regs.B);
-            var val = RDMEM(regs.HL); Tact += 3;
+            var val = RDMEM(regs.HL++); Tact += 3;
+            regs.MW = (ushort)(regs.BC + 1);
+
+            var nf = (byte)((val >> 6) & CpuFlags.N);
+	        var  t   = val + regs.L;
+            var hcf = t > 255 ? CpuFlags.HC : 0;
+
+            regs.B--;
+            var pf = CpuTables.Parity[(t & 7) ^ regs.B];
 
             WRPORT(regs.BC, val); Tact += 3;
-            Tact++; //?? really?
+            Tact++;
 
-            regs.HL++;
             if (regs.B != 0)
             {
                 RDNOMREQ(regs.BC); Tact++;
@@ -316,12 +373,45 @@ namespace ZXMAK2.Engine.Cpu.Processor
                 RDNOMREQ(regs.BC); Tact++;
                 RDNOMREQ(regs.BC); Tact++;
                 regs.PC -= 2;
-                regs.F |= CpuFlags.P;
+
+                regs.F = (byte)(
+                                                /* ZF = 0			*/
+                    (regs.B & CpuFlags.S) |     /* SF = Bo.7		*/
+                    (regs.PCH & CpuFlags.F3F5) |/* YF = PCi.13; XF = PCi.11 */
+                    nf);                        /* NF = IO.7		*/
+                if (hcf != 0)
+                {
+                    regs.F |= CpuFlags.C;
+                    if ((val & 0x80) != 0)
+                    {
+                        // PF = PF ^ Parity((B - 1) & 0x7) ^ 1;
+                        // HF = (B & 0x0F) == 0x00;
+                        regs.F |= (byte)(pf ^ CpuTables.Parity[(regs.B - 1) & 7] ^ CpuFlags.P);
+                        if ((regs.B & 0x0f) == 0x00)
+                            regs.F |= CpuFlags.H;
+                    }
+                    else
+                    {
+                        // PF = PF ^ Parity((B + 1) & 0x7) ^ 1;
+                        // HF = (B & 0x0F) == 0x0F;
+                        regs.F |= (byte)(pf ^ CpuTables.Parity[(regs.B + 1) & 7] ^ CpuFlags.P);
+                        if ((regs.B & 0x0f) == 0x0f)
+                            regs.F |= CpuFlags.H;
+                    }
+                }
+                else
+                {
+                    // PF = PF ^ Parity(B & 0x7) ^ 1;
+                    regs.F |= (byte)(pf ^ CpuTables.Parity[regs.B & 7] ^ CpuFlags.P);
+                }
             }
-            else regs.F &= CpuFlags.NotP;
-            regs.F &= CpuFlags.NotC;
-            if (regs.L == 0) regs.F |= CpuFlags.C;
-            regs.MW = (ushort)(regs.BC + 1);
+            else
+            {
+                regs.F = (byte)(CpuFlags.Z  | /* ZF = 1; SF, YF, XF = 0     */
+                    hcf | /* HF, CF = T > 255	    */
+                    pf | /* PF = ((T & 7) ^ Bo).parity */
+                    nf);   /* NF = IO.7		    */
+            }
         }
 
         private void ED_LDDR(byte cmd)
@@ -338,8 +428,7 @@ namespace ZXMAK2.Engine.Cpu.Processor
             regs.BC--;
             val += regs.A;
 
-            regs.F = (byte)((regs.F & CpuFlags.NotHPNF3F5) |
-                (val & CpuFlags.F3) | ((val << 4) & CpuFlags.F5));
+            regs.F &= CpuFlags.NotHPNF3F5;
             if (regs.BC != 0)
             {
                 WRNOMREQ(regs.DE); Tact++;
@@ -350,7 +439,15 @@ namespace ZXMAK2.Engine.Cpu.Processor
                 regs.PC--;
                 regs.MW = regs.PC;
                 regs.PC--;
+
+                // YF = PCi.13; XF = PCi.11
+                regs.F |= (byte)(regs.PCH & CpuFlags.F3F5);
                 regs.F |= CpuFlags.P;
+            }
+            else
+            {
+                // YF = PCi.13; XF = PCi.11
+                regs.F |= (byte)((val & CpuFlags.F3) | ((val << 4) & CpuFlags.F5));
             }
             regs.HL--;
             regs.DE--;
@@ -386,6 +483,10 @@ namespace ZXMAK2.Engine.Cpu.Processor
                     regs.PC--;
                     regs.MW = regs.PC;
                     regs.PC--;
+
+                    // YF = PCi.13; XF = PCi.11
+                    regs.F &= CpuFlags.NotF3F5;
+                    regs.F |= (byte)(regs.PCH & CpuFlags.F3F5);
                 }
             }
             regs.HL--;
@@ -398,13 +499,17 @@ namespace ZXMAK2.Engine.Cpu.Processor
 
             RDNOMREQ(regs.IR); Tact++;
 
-            regs.MW = (ushort)(regs.BC - 1);
             var val = RDPORT(regs.BC); Tact += 3;
 
-            WRMEM(regs.HL, val); Tact += 3;
+            var nf = (byte)((val >> 6) & CpuFlags.N);
+            var t = val + ((regs.C - 1) & 0xff);
+            var hcf = t > 255 ? CpuFlags.HC : 0;
 
-            regs.B = ALU_DECR(regs.B);
-            Tact++; //?? really?
+            WRMEM(regs.HL--, val); Tact += 3;
+            regs.MW = (ushort)(regs.BC - 1);
+
+            regs.B--; Tact++;
+            var pf = CpuTables.Parity[(t & 7) ^ regs.B];
 
             if (regs.B != 0)
             {
@@ -414,10 +519,45 @@ namespace ZXMAK2.Engine.Cpu.Processor
                 WRNOMREQ(regs.HL); Tact++;
                 WRNOMREQ(regs.HL); Tact++;
                 regs.PC -= 2;
-                regs.F |= CpuFlags.P;
+
+                regs.F = (byte)(
+                                                /* ZF = 0			*/
+                    (regs.B & CpuFlags.S) |     /* SF = Bo.7		*/
+                    (regs.PCH & CpuFlags.F3F5) |/* YF = PCi.13; XF = PCi.11 */
+                    nf);                        /* NF = IO.7		*/
+                if (hcf != 0)
+                {
+                    regs.F |= CpuFlags.C;
+                    if ((val & 0x80) != 0)
+                    {
+                        // PF = PF ^ Parity((B - 1) & 0x7) ^ 1;
+                        // HF = (B & 0x0F) == 0x00;
+                        regs.F |= (byte)(pf ^ CpuTables.Parity[(regs.B - 1) & 7] ^ CpuFlags.P);
+                        if ((regs.B & 0x0f) == 0x00)
+                            regs.F |= CpuFlags.H;
+                    }
+                    else
+                    {
+                        // PF = PF ^ Parity((B + 1) & 0x7) ^ 1;
+                        // HF = (B & 0x0F) == 0x0F;
+                        regs.F |= (byte)(pf ^ CpuTables.Parity[(regs.B + 1) & 7] ^ CpuFlags.P);
+                        if ((regs.B & 0x0f) == 0x0f)
+                            regs.F |= CpuFlags.H;
+                    }
+                }
+                else
+                {
+                    // PF = PF ^ Parity(B & 0x7) ^ 1;
+                    regs.F |= (byte)(pf ^ CpuTables.Parity[regs.B & 7] ^ CpuFlags.P);
+                }
             }
-            else regs.F &= CpuFlags.NotP;
-            regs.HL--;
+            else
+            {
+                regs.F = (byte)(CpuFlags.Z  | /* ZF = 1; SF, YF, XF = 0     */
+                    hcf | /* HF, CF = T > 255	    */
+                    pf | /* PF = ((T & 7) ^ Bo).parity */
+                    nf);   /* NF = IO.7		    */
+            }
         }
 
         private void ED_OTDR(byte cmd)  //OTDR [16T/21T]
@@ -427,11 +567,18 @@ namespace ZXMAK2.Engine.Cpu.Processor
 
             RDNOMREQ(regs.IR); Tact++;
 
-            var val = RDMEM(regs.HL); Tact += 3;
-            regs.B = ALU_DECR(regs.B);
+            var val = RDMEM(regs.HL--); Tact += 3;
+            regs.MW = (ushort)(regs.BC - 1);
+
+            var nf = (byte)((val >> 6) & CpuFlags.N);
+            var t = val + regs.L;
+            var hcf = t > 255 ? CpuFlags.HC : 0;
+
+            regs.B--;
+            var pf = CpuTables.Parity[(t & 7) ^ regs.B];
 
             WRPORT(regs.BC, val); Tact += 3;
-            Tact++; //?? really?
+            Tact++;
 
             if (regs.B != 0)
             {
@@ -441,13 +588,45 @@ namespace ZXMAK2.Engine.Cpu.Processor
                 RDNOMREQ(regs.BC); Tact++;
                 RDNOMREQ(regs.BC); Tact++;
                 regs.PC -= 2;
-                regs.F |= CpuFlags.P;
+
+                regs.F = (byte)(
+                                                /* ZF = 0			*/
+                    (regs.B & CpuFlags.S) |     /* SF = Bo.7		*/
+                    (regs.PCH & CpuFlags.F3F5) |/* YF = PCi.13; XF = PCi.11 */
+                    nf);                        /* NF = IO.7		*/
+                if (hcf != 0)
+                {
+                    regs.F |= CpuFlags.C;
+                    if ((val & 0x80) != 0)
+                    {
+                        // PF = PF ^ Parity((B - 1) & 0x7) ^ 1;
+                        // HF = (B & 0x0F) == 0x00;
+                        regs.F |= (byte)(pf ^ CpuTables.Parity[(regs.B - 1) & 7] ^ CpuFlags.P);
+                        if ((regs.B & 0x0f) == 0x00)
+                            regs.F |= CpuFlags.H;
+                    }
+                    else
+                    {
+                        // PF = PF ^ Parity((B + 1) & 0x7) ^ 1;
+                        // HF = (B & 0x0F) == 0x0F;
+                        regs.F |= (byte)(pf ^ CpuTables.Parity[(regs.B + 1) & 7] ^ CpuFlags.P);
+                        if ((regs.B & 0x0f) == 0x0f)
+                            regs.F |= CpuFlags.H;
+                    }
+                }
+                else
+                {
+                    // PF = PF ^ Parity(B & 0x7) ^ 1;
+                    regs.F |= (byte)(pf ^ CpuTables.Parity[regs.B & 7] ^ CpuFlags.P);
+                }
             }
-            else regs.F &= CpuFlags.NotP;
-            regs.F &= CpuFlags.NotC;
-            if (regs.L == 0xFF) regs.F |= CpuFlags.C;
-            regs.MW = (ushort)(regs.BC - 1);
-            regs.HL--;
+            else
+            {
+                regs.F = (byte)(CpuFlags.Z  | /* ZF = 1; SF, YF, XF = 0     */
+                    hcf | /* HF, CF = T > 255	    */
+                    pf | /* PF = ((T & 7) ^ Bo).parity */
+                    nf);   /* NF = IO.7		    */
+            }
         }
 
         private void ED_INRC(byte cmd)      // in R,(c)  [12T] 
