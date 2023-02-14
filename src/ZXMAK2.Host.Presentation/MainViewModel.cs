@@ -248,8 +248,17 @@ namespace ZXMAK2.Host.Presentation
             set { PropertyChangeVal("FrameSize", ref _frameSize, value); }
         }
 
+        private float _frameRatio = 1;
+
+        public float FrameRatio
+        {
+            get { return _frameRatio; }
+            set { PropertyChangeVal("FrameRatio", ref _frameRatio, value); }
+        }
+
         [DependsOnProperty("RenderSize")]
         [DependsOnProperty("FrameSize")]
+        [DependsOnProperty("FrameRatio")]
         public int? RenderScaleRatio
         {
             get 
@@ -257,9 +266,9 @@ namespace ZXMAK2.Host.Presentation
                 if (RenderSize.Width == 0 ||
                     RenderSize.Height == 0 ||
                     FrameSize.Width == 0 ||
-                    FrameSize.Height == 0 ||
+                    FrameSize.Height * FrameRatio == 0 ||
                     RenderSize.Width % FrameSize.Width != 0 ||
-                    RenderSize.Height % FrameSize.Height != 0 ||
+                    RenderSize.Height % FrameSize.Height * FrameRatio != 0 ||
                     RenderSize.Width % FrameSize.Width != RenderSize.Height % FrameSize.Height)
                 {
                     return null;
@@ -274,7 +283,7 @@ namespace ZXMAK2.Host.Presentation
                 }
                 RenderSize = new Size(
                     FrameSize.Width * value.Value,
-                    FrameSize.Height * value.Value);
+                    (int)(FrameSize.Height * value.Value * FrameRatio));
             }
         }
 
@@ -948,7 +957,18 @@ namespace ZXMAK2.Host.Presentation
 
         private void VirtualMachine_OnFrameSizeChanged(object sender, EventArgs e)
         {
-            ExecuteSynchronizedAsync(() => FrameSize = m_vm != null ? m_vm.FrameSize : Size.Empty);
+            ExecuteSynchronizedAsync(() => {
+                if (m_vm != null)
+                {
+                    FrameSize = m_vm.FrameSize;
+                    FrameRatio = m_vm.FrameRatio;
+                }
+                else
+                {
+                    FrameSize = Size.Empty;
+                    FrameRatio = 1;
+                }
+            });
         }
 
         private void LoadDialog_FileOk(object sender, CancelEventArgs e)

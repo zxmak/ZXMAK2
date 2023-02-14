@@ -223,6 +223,7 @@ namespace ZXMAK2.Engine
             var ula = m_ula ?? Spectrum.BusManager.FindDevice<IUlaDevice>();
             var videoFrame = ula != null && ula.VideoData != null ? ula.VideoData : m_blankData;
             FrameSize = videoFrame.Size;
+            FrameRatio = videoFrame.Ratio;
             if (isRequested)
             {
                 m_host.PushFrame(infoFrame, videoFrame, null);
@@ -242,6 +243,22 @@ namespace ZXMAK2.Engine
             private set
             {
                 _frameSize = value;
+                var handler = FrameSizeChanged;
+                if (handler != null)
+                {
+                    handler(this, EventArgs.Empty);
+                }
+            }
+        }
+
+        private float _frameRatio;
+
+        public float FrameRatio
+        {
+            get { return _frameRatio; }
+            private set
+            {
+                _frameRatio = value;
                 var handler = FrameSizeChanged;
                 if (handler != null)
                 {
