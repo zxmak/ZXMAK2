@@ -305,10 +305,11 @@ namespace ZXMAK2.Hardware.Sprinter
                         _kbdbuf.Enqueue(m_kbd_scancodes[_kbdHits.Items[num].Code][0]);
                         if (m_kbd_scancodes[_kbdHits.Items[num].Code][1] != 0) _kbdbuf.Enqueue(m_kbd_scancodes[_kbdHits.Items[num].Code][1]);
                         _kbdHits.Items[num].Frames = 0;
+                        _kbdHits.Items[num].First = false;
                     }
                     else
                     {
-                        if ((_kbdHits.Items[num].Frames == 3) && (!_kbdHits.Items[num].First))
+                        if ((_kbdHits.Items[num].Frames == 2) && (!_kbdHits.Items[num].First))
                         {
                             _kbdbuf.Enqueue(m_kbd_scancodes[_kbdHits.Items[num].Code][0]);
                             if (m_kbd_scancodes[_kbdHits.Items[num].Code][1] != 0) _kbdbuf.Enqueue(m_kbd_scancodes[_kbdHits.Items[num].Code][1]);
