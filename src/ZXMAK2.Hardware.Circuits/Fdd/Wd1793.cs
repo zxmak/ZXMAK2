@@ -430,6 +430,11 @@ namespace ZXMAK2.Hardware.Circuits.Fdd
                         {
                             // read/write sectors or read am - find next AM
                             end_waiting_am = next + 5 * Z80FQ / FDD_RPS; // max wait disk 5 turns
+
+                            // Fix for old (~1992) Quorum disks, which contain CP/M that waits too little after C4 command
+                            if (wd93_nodelay && (cmd & 0xF0) == 0xC0) // read address
+                                end_waiting_am = next + 1;
+
                             find_marker(toTact);
                             break;
                         }
