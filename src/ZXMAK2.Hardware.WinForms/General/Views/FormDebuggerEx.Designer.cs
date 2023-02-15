@@ -250,6 +250,7 @@
             // 
             // toolStripStatusTact
             // 
+            this.toolStripStatusTact.DoubleClickEnabled = true;
             this.toolStripStatusTact.Name = "toolStripStatusTact";
             this.toolStripStatusTact.Size = new System.Drawing.Size(91, 17);
             this.toolStripStatusTact.Text = "T: 71680 / 71680";

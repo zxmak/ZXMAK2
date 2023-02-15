@@ -91,7 +91,16 @@ namespace ZXMAK2.Hardware.WinForms.General
 
         private void UpdateCPU(bool updatePC)
         {
-            if (m_spectrum.IsRunning)
+            var isRunning = m_spectrum.IsRunning;
+
+            statusStrip.BackColor = isRunning ? ColorTranslator.FromHtml("#cc6600") : ColorTranslator.FromHtml("#0077cc");
+            statusStrip.ForeColor = isRunning ? ColorTranslator.FromHtml("#ffffff") : ColorTranslator.FromHtml("#ffffff");
+            toolStripStatus.Text = isRunning ? "Running" : "Ready";
+            toolStripStatusTact.Text = isRunning ? string.Format("T: - / {0}", m_spectrum.FrameTactCount) :
+                string.Format("T: {0} / {1}", m_spectrum.GetFrameTact(), m_spectrum.FrameTactCount);
+            toolStripStatusTact.Enabled = !isRunning;
+
+            if (isRunning)
                 updatePC = false;
             dasmPanel.ForeColor = m_spectrum.IsRunning ? SystemColors.ControlDarkDark : SystemColors.ControlText;
             UpdateREGS();
@@ -135,7 +144,6 @@ namespace ZXMAK2.Hardware.WinForms.General
             listState.Items.Add(" XFX=" + m_spectrum.CPU.XFX.ToString());
             listState.Items.Add(" LPC=#" + m_spectrum.CPU.LPC.ToString("X4"));
             listState.Items.Add("Tact=" + m_spectrum.CPU.Tact.ToString());
-            listState.Items.Add("frmT=" + m_spectrum.GetFrameTact().ToString());
             if (m_spectrum.RzxState.IsPlayback)
             {
                 listState.Items.Add(string.Format("rzxm={0}/{1}", m_spectrum.RzxState.Fetch, m_spectrum.RzxState.FetchCount));
@@ -197,7 +205,7 @@ namespace ZXMAK2.Hardware.WinForms.General
             return false;
         }
 
-        private void dasmPanel_SetBreakpoint(object sender, ushort addr)
+        private void dasmPanel_BreakpointClick(object sender, ushort addr)
         {
             bool found = false;
             foreach (var bp in m_spectrum.GetBreakpointList())
@@ -457,17 +465,6 @@ namespace ZXMAK2.Hardware.WinForms.General
                     if (m_spectrum.CPU.IM > 2)
                         m_spectrum.CPU.IM = 0;
                     break;
-                case 8:     //frmT
-                    int frameTact = m_spectrum.GetFrameTact();
-                    var service = Locator.Resolve<IUserQuery>();
-                    if (service.QueryValue("Frame Tact", "New Frame Tact:", "{0}", ref frameTact, 0, m_spectrum.FrameTactCount))
-                    {
-                        int delta = frameTact - m_spectrum.GetFrameTact();
-                        if (delta < 0)
-                            delta += m_spectrum.FrameTactCount;
-                        m_spectrum.CPU.Tact += delta;
-                    }
-                    break;
             }
             UpdateCPU(false);
         }
@@ -536,6 +533,20 @@ namespace ZXMAK2.Hardware.WinForms.General
                 using (FileStream fs = new FileStream(saveDialog.FileName, FileMode.Create, FileAccess.Write, FileShare.Read))
                     fs.Write(data, 0, data.Length);
             }
+        }
+
+        private void toolStripStatusTact_DoubleClick(object sender, EventArgs e)
+        {
+            var frameTact = m_spectrum.GetFrameTact();
+            var service = Locator.Resolve<IUserQuery>();
+            if (service.QueryValue("Frame Tact", "New Frame Tact:", "{0}", ref frameTact, 0, m_spectrum.FrameTactCount))
+            {
+                var delta = frameTact - m_spectrum.GetFrameTact();
+                if (delta < 0)
+                    delta += m_spectrum.FrameTactCount;
+                m_spectrum.CPU.Tact += delta;
+            }
+            UpdateCPU(false);
         }
     }
 }
