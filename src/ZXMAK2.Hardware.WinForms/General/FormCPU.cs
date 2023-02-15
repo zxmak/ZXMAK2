@@ -82,23 +82,22 @@ namespace ZXMAK2.Hardware.WinForms.General
             m_spectrum.Breakpoint -= spectrum_OnBreakpoint;
         }
 
-        private void FormCPU_Load(object sender, EventArgs e)
-        {
-            UpdateCPU(true);
-        }
-
         private void FormCPU_Shown(object sender, EventArgs e)
         {
-            Show();
-            UpdateCPU(false);
             dasmPanel.Focus();
             Select();
+        }
+
+        private void FormCpu_VisibleChanged(object sender, EventArgs e)
+        {
+            if (!Visible) return;
+            UpdateCPU(!m_spectrum.IsRunning);
         }
 
 
         private void spectrum_OnUpdateState(object sender, EventArgs args)
         {
-            if (!Created)
+            if (!Created || !Visible)
                 return;
             BeginInvoke(new Action(() => UpdateCPU(true)), null);
         }
@@ -137,12 +136,9 @@ namespace ZXMAK2.Hardware.WinForms.General
             toolStripBreakpoints.Enabled = false;
 
 
-
-            if (isRunning)
-                updatePC = false;
             dasmPanel.ForeColor = m_spectrum.IsRunning ? SystemColors.ControlDarkDark : SystemColors.ControlText;
             UpdateREGS();
-            UpdateDASM(updatePC);
+            UpdateDASM(updatePC && !isRunning);
             UpdateDATA();
         }
 
