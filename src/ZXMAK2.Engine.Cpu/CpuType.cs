@@ -24,7 +24,9 @@ namespace ZXMAK2.Engine.Cpu
 {
     public enum CpuType 
     { 
-        Z80 = 0, 
-        Z84 
+        ZILOG_NMOS = 0,
+        ZILOG_CMOS = 1,
+        NEC_NMOS = 2,   // NEC
+        ST_CMOS = 3,    // Z84?
     }
 }

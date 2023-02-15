@@ -58,6 +58,8 @@ namespace ZXMAK2.Engine.Cpu
         public ushort SP = 0;
         [FieldOffset(26)]
         public ushort MW = 0;    // MEMPTR
+        [FieldOffset(28)]
+        public byte Q = 0;       // TODO: Q flags
 
 
         [FieldOffset(1)]

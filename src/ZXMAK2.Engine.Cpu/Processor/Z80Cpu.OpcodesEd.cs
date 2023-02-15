@@ -22,6 +22,7 @@
  */
 
 
+using System;
 namespace ZXMAK2.Engine.Cpu.Processor
 {
     public partial class Z80Cpu
@@ -643,7 +644,7 @@ namespace ZXMAK2.Engine.Cpu.Processor
             Tact += 4;
         }
 
-        private void ED_OUTCR(byte cmd)     // out (c),R [12T]
+        private void ED_OUTCR_NMOS(byte cmd)     // out (c),R [12T]
         {
             // 12T (4, 4, 4)
             var r = (cmd & 0x38) >> 3;
@@ -652,7 +653,21 @@ namespace ZXMAK2.Engine.Cpu.Processor
             if (r != CpuRegId.F)
                 WRPORT(regs.BC, _regGetters[r]());
             else
-                WRPORT(regs.BC, (byte)(CpuType == CpuType.Z80 ? 0x00 : 0xFF));	// 0 for Z80 and 0xFF for Z84
+                WRPORT(regs.BC, 0x00);	// 0 for Z80 and 0xFF for Z84
+            regs.MW++;
+            Tact += 4;
+        }
+
+        private void ED_OUTCR_CMOS(byte cmd)     // out (c),R [12T]
+        {
+            // 12T (4, 4, 4)
+            var r = (cmd & 0x38) >> 3;
+
+            regs.MW = regs.BC;
+            if (r != CpuRegId.F)
+                WRPORT(regs.BC, _regGetters[r]());
+            else
+                WRPORT(regs.BC, 0xFF);	// 0 for Z80 and 0xFF for Z84
             regs.MW++;
             Tact += 4;
         }
@@ -796,10 +811,29 @@ namespace ZXMAK2.Engine.Cpu.Processor
                 regs.A = regs.R;
 
             regs.F = (byte)(((regs.F & CpuFlags.C) | CpuTables.Logf[regs.A]) & CpuFlags.NotP);
-
-            if (!(INT && IFF1) && IFF2)
+            switch (_type)
             {
-                regs.F |= CpuFlags.P;
+                case CpuType.ZILOG_NMOS:
+                case CpuType.NEC_NMOS:
+                case CpuType.ST_CMOS:
+                    var handler = SCANSIG;
+                    if (handler != null)
+                    {
+                        handler();
+                    }
+                    if (!(INT && IFF1) && IFF2)
+                    {
+                        regs.F |= CpuFlags.P;
+                    }
+                    break;
+                case CpuType.ZILOG_CMOS:
+                    if (IFF2)
+                    {
+                        regs.F |= CpuFlags.P;
+                    }
+                    break;
+                default:
+                    throw new NotImplementedException();
             }
         }
 

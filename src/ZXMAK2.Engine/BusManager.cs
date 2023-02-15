@@ -68,6 +68,7 @@ namespace ZXMAK2.Engine
             m_rzx = new RzxHandler(m_cpu);
             m_eventManager = new EventManager(m_cpu, m_rzx);
             SampleRate = 44100;
+            m_eventManager.ScanSig += EventManager_ScanSig;
         }
 
 
@@ -435,6 +436,14 @@ namespace ZXMAK2.Engine
                 m_ula.CheckInt(frameTact);
             m_eventManager.PreCycle();
             m_cpu.ExecCycle();
+        }
+
+        private void EventManager_ScanSig()
+        {
+            int frameTact = GetFrameTact();
+            m_cpu.INT = m_rzx.IsPlayback ?
+                m_rzx.CheckInt(frameTact) :
+                m_ula.CheckInt(frameTact);
         }
 
         internal String MachineFile

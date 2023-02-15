@@ -28,7 +28,6 @@ namespace ZXMAK2.Engine.Cpu.Processor
     public partial class Z80Cpu
     {
         public readonly CpuRegs regs = new CpuRegs();
-        public CpuType CpuType;
         public int RzxCounter;
         public long Tact;
         public bool HALTED;
@@ -55,6 +54,14 @@ namespace ZXMAK2.Engine.Cpu.Processor
         public Action<ushort, byte> WRPORT;
         public Action<ushort> RDNOMREQ;
         public Action<ushort> WRNOMREQ;
+        public Action SCANSIG;
+
+        private CpuType _type = CpuType.NEC_NMOS;
+        public CpuType Type
+        {
+            get { return _type; }
+            set { _type = value; initOpcodeTables(); }
+        }
 
         public Z80Cpu()
         {
@@ -71,11 +78,13 @@ namespace ZXMAK2.Engine.Cpu.Processor
                 .Range(0, 8).Select(regs.CreateRegSetter)
                 .ToArray();
             _alualg = CreateAluAlg();
-            _opcodes = CreateOpcodes();
-            _opcodesFx = CreateOpcodesFx();
-            _opcodesEd = CreateOpcodesEd();
-            _opcodesCb = CreateOpcodesCb();
-            _opcodesFxCb = CreateOpcodesFxCb();
+
+            _opcodes = new Action<byte>[256];
+            _opcodesFx = new Action<byte>[256];
+            _opcodesEd = new Action<byte>[256];
+            _opcodesCb = new Action<byte>[256];
+            _opcodesFxCb = new Action<byte, ushort>[256];
+            initOpcodeTables();
 
             regs.AF = 0xFF;
             regs.BC = 0xFF;
@@ -91,6 +100,25 @@ namespace ZXMAK2.Engine.Cpu.Processor
             regs.PC = 0xFF;
             regs.SP = 0xFF;
             regs.MW = 0xFF;
+        }
+
+        private void initOpcodeTables()
+        {
+            initOpcodeTable(_opcodes, CreateOpcodes());
+            initOpcodeTable(_opcodesFx, CreateOpcodesFx());
+            initOpcodeTable(_opcodesEd, CreateOpcodesEd());
+            initOpcodeTable(_opcodesCb, CreateOpcodesCb());
+            initOpcodeTable(_opcodesFxCb, CreateOpcodesFxCb());
+        }
+
+        private static void initOpcodeTable<T>(T[] opcodes, T[] actions)
+        {
+            if (opcodes.Length != actions.Length)
+                throw new ArgumentOutOfRangeException("opcodes");
+            for (var i = 0; i < opcodes.Length; i++)
+            {
+                opcodes[i] = actions[i];
+            }
         }
 
 

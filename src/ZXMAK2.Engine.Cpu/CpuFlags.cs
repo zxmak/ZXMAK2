@@ -103,6 +103,7 @@ namespace ZXMAK2.Engine.Cpu
         internal const byte HPNF3F5 = H | P | N | F3 | F5;
         internal const byte HC = H | C;
         internal const byte SZP = S | Z | P;
+        internal const byte SZPC = S | Z | P | C;
         internal const byte HN = H | N;
 
         internal const byte NotF3F5 = F3F5 ^ 0xFF;
@@ -112,6 +113,7 @@ namespace ZXMAK2.Engine.Cpu
         internal const byte NotHPNF3F5 = HPNF3F5 ^ 0xFF;
         internal const byte NotHC = HC ^ 0xFF;
         internal const byte NotSZP = SZP ^ 0xFF;
+        internal const byte NotSZPC = SZPC ^ 0xFF;
         internal const byte NotHN = HN ^ 0xFF;
 
         #endregion Internal flag sets (used by engine)

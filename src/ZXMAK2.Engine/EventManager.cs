@@ -29,7 +29,8 @@ namespace ZXMAK2.Engine
         private Action m_intAck;
         private Action m_beginFrame;
         private Action m_endFrame;
-        private Action<int> m_scanInt;
+
+        public event Action ScanSig;
 
         public EventManager(CpuUnit cpu, RzxHandler rzx)
         {
@@ -46,6 +47,7 @@ namespace ZXMAK2.Engine
             m_cpu.RDNOMREQ = RDNOMREQ;
             m_cpu.WRNOMREQ = WRNOMREQ;
             m_cpu.RESET = RESET;
+            m_cpu.SCANSIG = SCANSIG;
             
             Clear();
         }
@@ -172,11 +174,6 @@ namespace ZXMAK2.Engine
         public void SubscribeIntAck(Action proc)
         {
             m_intAck += proc;
-        }
-
-        public void SubscribeScanInt(Action<int> handler)
-        {
-            m_scanInt += handler;
         }
 
         public void SubscribeBeginFrame(Action handler)
@@ -315,6 +312,15 @@ namespace ZXMAK2.Engine
         private void NMIACK_M1()
         {
             var handler = m_nmiAck;
+            if (handler != null)
+            {
+                handler();
+            }
+        }
+
+        private void SCANSIG()
+        {
+            var handler = ScanSig;
             if (handler != null)
             {
                 handler();

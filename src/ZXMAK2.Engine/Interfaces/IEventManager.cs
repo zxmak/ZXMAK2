@@ -18,7 +18,6 @@ namespace ZXMAK2.Engine.Interfaces
         void SubscribeNmiRq(BusRqProc proc);
         void SubscribeNmiAck(Action proc);
         void SubscribeIntAck(Action proc);
-        void SubscribeScanInt(Action<int> handler);
 
         void SubscribePreCycle(Action proc);
         void SubscribeBeginFrame(Action handler);

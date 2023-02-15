@@ -40,13 +40,33 @@ namespace ZXMAK2.Engine.Cpu.Processor
 
         private Action<byte>[] CreateOpcodes()
         {
+            Action<byte> scf;
+            Action<byte> ccf;
+            switch (_type)
+            {
+                case CpuType.ZILOG_NMOS:
+                case CpuType.ZILOG_CMOS: 
+                    scf = SCF_ZILOG;
+                    ccf = CCF_ZILOG;
+                    break;
+                case CpuType.NEC_NMOS: 
+                    scf = SCF_NEC_NMOS; 
+                    ccf = CCF_NEC_NMOS;
+                    break;
+                case CpuType.ST_CMOS: 
+                    scf = SCF_ST_CMOS; 
+                    ccf = CCF_ST_CMOS;
+                    break;
+                default: throw new NotImplementedException();
+            }
+            
             var opcodes = new Action<byte>[256]
             {
 //              0        1         2         3         4          5        6         7          8       9        A         B        C          D         E         F
                 null,    LDRRNNNN, LD_RR_A,  INCRR,    INCR,      DECR,    LDRNN,    RLCA,      EXAFAF, ADDHLRR, LDA_RR_,  DECRR,   INCR,      DECR,     LDRNN,    RRCA,   // 00..0F
                 DJNZ,    LDRRNNNN, LD_RR_A,  INCRR,    INCR,      DECR,    LDRNN,    RLA,       JRNN,   ADDHLRR, LDA_RR_,  DECRR,   INCR,      DECR,     LDRNN,    RRA,    // 10..1F
                 JRXNN,   LDRRNNNN, LD_NN_HL, INCRR,    INCR,      DECR,    LDRNN,    DAA,       JRXNN,  ADDHLRR, LDHL_NN_, DECRR,   INCR,      DECR,     LDRNN,    CPL,    // 20..2F
-                JRXNN,   LDRRNNNN, LD_NN_A,  INCRR,    INC_HL_,   DEC_HL_, LD_HL_NN, SCF,       JRXNN,  ADDHLRR, LDA_NN_,  DECRR,   INCR,      DECR,     LDRNN,    CCF,    // 30..3F
+                JRXNN,   LDRRNNNN, LD_NN_A,  INCRR,    INC_HL_,   DEC_HL_, LD_HL_NN, scf,       JRXNN,  ADDHLRR, LDA_NN_,  DECRR,   INCR,      DECR,     LDRNN,    ccf,    // 30..3F
 
                 null,    LDRdRs,   LDRdRs,   LDRdRs,   LDRdRs,    LDRdRs,  LDR_HL_,  LDRdRs,    LDRdRs, null,    LDRdRs,   LDRdRs,  LDRdRs,    LDRdRs,   LDR_HL_,  LDRdRs, // 40..4F
                 LDRdRs,  LDRdRs,   null,     LDRdRs,   LDRdRs,    LDRdRs,  LDR_HL_,  LDRdRs,    LDRdRs, LDRdRs,  LDRdRs,   null,    LDRdRs,    LDRdRs,   LDR_HL_,  LDRdRs, // 50..5F
@@ -77,13 +97,33 @@ namespace ZXMAK2.Engine.Cpu.Processor
 
         private Action<byte>[] CreateOpcodesFx()
         {
+            Action<byte> scf;
+            Action<byte> ccf;
+            switch (_type)
+            {
+                case CpuType.ZILOG_NMOS:
+                case CpuType.ZILOG_CMOS:
+                    scf = SCF_ZILOG;
+                    ccf = CCF_ZILOG;
+                    break;
+                case CpuType.NEC_NMOS:
+                    scf = SCF_NEC_NMOS;
+                    ccf = CCF_NEC_NMOS;
+                    break;
+                case CpuType.ST_CMOS:
+                    scf = SCF_ST_CMOS;
+                    ccf = CCF_ST_CMOS;
+                    break;
+                default: throw new NotImplementedException();
+            }
+
             return new Action<byte>[256]
             {
 //              0           1            2            3            4           5           6             7           8        9           A           B         C          D          E             F
                 null,       LDRRNNNN,    LD_RR_A,     INCRR,       INCR,       DECR,       LDRNN,        RLCA,       EXAFAF,  FX_ADDIXRR, LDA_RR_,    DECRR,    INCR,      DECR,      LDRNN,        RRCA,   // 00..0F
                 DJNZ,       LDRRNNNN,    LD_RR_A,     INCRR,       INCR,       DECR,       LDRNN,        RLA,        JRNN,    FX_ADDIXRR, LDA_RR_,    DECRR,    INCR,      DECR,      LDRNN,        RRA,    // 10..1F
                 JRXNN,      FX_LDIXNNNN, FX_LD_NN_IX, FX_INCIX,    FX_INCH,    FX_DECH,    FX_LDHNN,     DAA,        JRXNN,   FX_ADDIXRR, FX_LDIX_N_, FX_DECIX, FX_INCL,   FX_DECL,   FX_LDLNN,     CPL,    // 20..2F
-                JRXNN,      LDRRNNNN,    LD_NN_A,     INCRR,       FX_INC_IX_, FX_DEC_IX_, FX_LD_IX_NN,  SCF,        JRXNN,   FX_ADDIXRR, LDA_NN_,    DECRR,    INCR,      DECR,      LDRNN,        CCF,    // 30..3F
+                JRXNN,      LDRRNNNN,    LD_NN_A,     INCRR,       FX_INC_IX_, FX_DEC_IX_, FX_LD_IX_NN,  scf,        JRXNN,   FX_ADDIXRR, LDA_NN_,    DECRR,    INCR,      DECR,      LDRNN,        ccf,    // 30..3F
 
                 null,       LDRdRs,      LDRdRs,      LDRdRs,      FX_LDRH,    FX_LDRL,    FX_LDR_IX_,   LDRdRs,     LDRdRs,  null,       LDRdRs,     LDRdRs,   FX_LDRH,   FX_LDRL,   FX_LDR_IX_,   LDRdRs, // 40..4F
                 LDRdRs,     LDRdRs,      null,        LDRdRs,      FX_LDRH,    FX_LDRL,    FX_LDR_IX_,   LDRdRs,     LDRdRs,  LDRdRs,     LDRdRs,     null,     FX_LDRH,   FX_LDRL,   FX_LDR_IX_,   LDRdRs, // 50..5F
@@ -104,16 +144,30 @@ namespace ZXMAK2.Engine.Cpu.Processor
 
         private Action<byte>[] CreateOpcodesEd()
         {
+            Action<byte> ed_outcr;
+            switch (_type)
+            {
+                case CpuType.ZILOG_NMOS:
+                case CpuType.NEC_NMOS: 
+                    ed_outcr = ED_OUTCR_NMOS; 
+                    break;
+                case CpuType.ST_CMOS:
+                case CpuType.ZILOG_CMOS: 
+                    ed_outcr = ED_OUTCR_CMOS; 
+                    break;
+                default: throw new NotImplementedException();
+            }
+
             return new Action<byte>[256] 
 			{
 				null, null, null, null, null, null, null, null,  null, null, null, null, null, null, null, null,             // 00..0F
 				null, null, null, null, null, null, null, null,  null, null, null, null, null, null, null, null,             // 10..1F
 				null, null, null, null, null, null, null, null,  null, null, null, null, null, null, null, null,             // 20..2F
 				null, null, null, null, null, null, null, null,  null, null, null, null, null, null, null, null,             // 30..3F
-				ED_INRC, ED_OUTCR, ED_SBCHLRR, ED_LD_NN_RR, ED_NEG, ED_RETN, ED_IM, ED_LDXRA,  ED_INRC, ED_OUTCR, ED_ADCHLRR, ED_LDRR_NN_, ED_NEG, ED_RETN, ED_IM, ED_LDXRA, // 40..4F
-				ED_INRC, ED_OUTCR, ED_SBCHLRR, ED_LD_NN_RR, ED_NEG, ED_RETN, ED_IM, ED_LDAXR,  ED_INRC, ED_OUTCR, ED_ADCHLRR, ED_LDRR_NN_, ED_NEG, ED_RETN, ED_IM, ED_LDAXR, // 50..5F
-				ED_INRC, ED_OUTCR, ED_SBCHLRR, ED_LD_NN_RR, ED_NEG, ED_RETN, ED_IM, ED_RRD,    ED_INRC, ED_OUTCR, ED_ADCHLRR, ED_LDRR_NN_, ED_NEG, ED_RETN, ED_IM, ED_RLD,   // 60..6F
-				ED_INRC, ED_OUTCR, ED_SBCHLRR, ED_LD_NN_RR, ED_NEG, ED_RETN, ED_IM, null,   ED_INRC, ED_OUTCR, ED_ADCHLRR, ED_LDRR_NN_, ED_NEG, ED_RETN, ED_IM, null,  // 70..7F
+				ED_INRC, ed_outcr, ED_SBCHLRR, ED_LD_NN_RR, ED_NEG, ED_RETN, ED_IM, ED_LDXRA,  ED_INRC, ed_outcr, ED_ADCHLRR, ED_LDRR_NN_, ED_NEG, ED_RETN, ED_IM, ED_LDXRA, // 40..4F
+				ED_INRC, ed_outcr, ED_SBCHLRR, ED_LD_NN_RR, ED_NEG, ED_RETN, ED_IM, ED_LDAXR,  ED_INRC, ed_outcr, ED_ADCHLRR, ED_LDRR_NN_, ED_NEG, ED_RETN, ED_IM, ED_LDAXR, // 50..5F
+				ED_INRC, ed_outcr, ED_SBCHLRR, ED_LD_NN_RR, ED_NEG, ED_RETN, ED_IM, ED_RRD,    ED_INRC, ed_outcr, ED_ADCHLRR, ED_LDRR_NN_, ED_NEG, ED_RETN, ED_IM, ED_RLD,   // 60..6F
+				ED_INRC, ed_outcr, ED_SBCHLRR, ED_LD_NN_RR, ED_NEG, ED_RETN, ED_IM, null,   ED_INRC, ed_outcr, ED_ADCHLRR, ED_LDRR_NN_, ED_NEG, ED_RETN, ED_IM, null,  // 70..7F
 				null, null, null, null, null, null, null, null,  null, null, null, null, null, null, null, null,             // 80..8F
 				null, null, null, null, null, null, null, null,  null, null, null, null, null, null, null, null,             // 90..9F
 				ED_LDI,  ED_CPI,  ED_INI,  ED_OUTI, null, null,  null, null,  ED_LDD,  ED_CPD,  ED_IND,  ED_OUTD, null, null, null, null,             // A0..AF

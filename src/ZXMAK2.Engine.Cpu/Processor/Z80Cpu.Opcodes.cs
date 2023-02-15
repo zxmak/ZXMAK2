@@ -173,20 +173,46 @@ namespace ZXMAK2.Engine.Cpu.Processor
             regs.F = (byte)((regs.F & CpuFlags.NotF3F5) | CpuFlags.HN | (regs.A & CpuFlags.F3F5));
         }
 
-        private void SCF(byte cmd)
+        private void SCF_ZILOG(byte cmd)
         {
-            //regs.F = (byte)((regs.F & (int)~(ZFLAGS.H | ZFLAGS.N)) | (regs.A & (int)(ZFLAGS.F3 | ZFLAGS.F5)) | (int)ZFLAGS.C);
+            regs.F = (byte)((regs.F & CpuFlags.SZP) |
+                (((regs.F ^ regs.Q) | regs.A) & CpuFlags.F3F5) |
+                CpuFlags.C);
+        }
+
+        private void SCF_ST_CMOS(byte cmd)
+        {
+            regs.F = (byte)((regs.F & CpuFlags.SZP) |
+                ((((regs.F ^ regs.Q) & CpuFlags.F5) | regs.A) & CpuFlags.F3F5) |
+                CpuFlags.C);
+        }
+
+        private void SCF_NEC_NMOS(byte cmd)
+        {
             regs.F = (byte)((regs.F & CpuFlags.SZP) |
                 (regs.A & CpuFlags.F3F5) |
                 CpuFlags.C);
         }
 
-        private void CCF(byte cmd)
+        private void CCF_ZILOG(byte cmd)
         {
-            //regs.F = (byte)(((regs.F & (int)~(ZFLAGS.N | ZFLAGS.H)) | ((regs.F << 4) & (int)ZFLAGS.H) | (regs.A & (int)(ZFLAGS.F3 | ZFLAGS.F5))) ^ (int)ZFLAGS.C);
-            regs.F = (byte)((regs.F & CpuFlags.SZP) |
-                ((regs.F & CpuFlags.C) != 0 ? CpuFlags.H : CpuFlags.C) | 
-                (regs.A & CpuFlags.F3F5));
+            regs.F = (byte)(((regs.F & CpuFlags.SZPC) ^ CpuFlags.C) |
+                (((regs.F ^ regs.Q) | regs.A) & CpuFlags.F3F5) |
+                ((regs.F & CpuFlags.C) << 4));
+        }
+
+        private void CCF_ST_CMOS(byte cmd)
+        {
+            regs.F = (byte)(((regs.F & CpuFlags.SZPC) ^ CpuFlags.C) |
+                ((((regs.F ^ regs.Q) & CpuFlags.F5) | regs.A) & CpuFlags.F3F5) |
+                ((regs.F & CpuFlags.C) << 4));
+        }
+
+        private void CCF_NEC_NMOS(byte cmd)
+        {
+            regs.F = (byte)(((regs.F & CpuFlags.SZPC) ^ CpuFlags.C) |
+                (regs.A & CpuFlags.F3F5) |
+                ((regs.F & CpuFlags.C) << 4));
         }
 
         #endregion
