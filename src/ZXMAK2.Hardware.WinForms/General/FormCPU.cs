@@ -13,6 +13,7 @@ using ZXMAK2.Host.Presentation.Interfaces;
 using ZXMAK2.Host.WinForms.Views;
 using ZXMAK2.Engine.Interfaces;
 using ZXMAK2.Engine.Entities;
+using ZXMAK2.Resources;
 
 
 namespace ZXMAK2.Hardware.WinForms.General
@@ -27,6 +28,33 @@ namespace ZXMAK2.Hardware.WinForms.General
         {
             InitializeComponent();
             Init(debugTarget);
+            
+            // remove gap from the sizing-grip
+            statusStrip.Padding = new Padding(
+                statusStrip.Padding.Left,
+                statusStrip.Padding.Top, 
+                statusStrip.Padding.Left, 
+                statusStrip.Padding.Bottom);
+            LoadImages();
+        }
+
+        private void LoadImages()
+        {
+            toolStripContinue.Image = ResourceImages.DebuggerContinue;
+            toolStripBreak.Image = ResourceImages.DebuggerBreak;
+            toolStripStepInto.Image = ResourceImages.DebuggerStepInto;
+            toolStripStepOver.Image = ResourceImages.DebuggerStepOver;
+            toolStripStepOut.Image = ResourceImages.DebuggerStepOut;
+            toolStripShowNext.Image = ResourceImages.DebuggerShowNext;
+            toolStripBreakpoints.Image = ResourceImages.DebuggerShowBreakpoints;
+
+            menuFileClose.Image = ResourceImages.DebuggerClose;
+            menuDebugContinue.Image = ResourceImages.DebuggerContinue;
+            menuDebugBreak.Image = ResourceImages.DebuggerBreak;
+            menuDebugStepInto.Image = ResourceImages.DebuggerStepInto;
+            menuDebugStepOver.Image = ResourceImages.DebuggerStepOver;
+            menuDebugStepOut.Image = ResourceImages.DebuggerStepOut;
+            menuDebugShowNext.Image = ResourceImages.DebuggerShowNext;
         }
 
         private void Init(IDebuggable debugTarget)
@@ -99,6 +127,16 @@ namespace ZXMAK2.Hardware.WinForms.General
             toolStripStatusTact.Text = isRunning ? string.Format("T: - / {0}", m_spectrum.FrameTactCount) :
                 string.Format("T: {0} / {1}", m_spectrum.GetFrameTact(), m_spectrum.FrameTactCount);
             toolStripStatusTact.Enabled = !isRunning;
+
+            toolStripContinue.Enabled = !isRunning;
+            toolStripBreak.Enabled = isRunning;
+            toolStripStepInto.Enabled = !isRunning;
+            toolStripStepOver.Enabled = !isRunning;
+            toolStripStepOut.Enabled = false;// !isRunning;
+            toolStripShowNext.Enabled = !isRunning;
+            toolStripBreakpoints.Enabled = false;
+
+
 
             if (isRunning)
                 updatePC = false;
@@ -469,10 +507,18 @@ namespace ZXMAK2.Hardware.WinForms.General
             UpdateCPU(false);
         }
 
+
+        #region Toolstrip handlers
+
         private static int s_addr = 0x4000;
         private static int s_len = 6912;
 
-        private void menuLoadBlock_Click(object sender, EventArgs e)
+        private void menuFileClose_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void menuFileLoad_Click(object sender, EventArgs e)
         {
             using (var loadDialog = new OpenFileDialog())
             {
@@ -506,7 +552,7 @@ namespace ZXMAK2.Hardware.WinForms.General
             }
         }
 
-        private void menuSaveBlock_Click(object sender, EventArgs e)
+        private void menuFileSave_Click(object sender, EventArgs e)
         {
             var service = Locator.Resolve<IUserQuery>();
             if (!service.QueryValue("Save Block", "Memory Address:", "#{0:X4}", ref s_addr, 0, 0xFFFF))
@@ -548,5 +594,63 @@ namespace ZXMAK2.Hardware.WinForms.General
             }
             UpdateCPU(false);
         }
+
+        private void toolStripContinue_Click(object sender, EventArgs e)
+        {
+            m_spectrum.DoRun();
+            UpdateCPU(false);
+        }
+
+        private void toolStripBreak_Click(object sender, EventArgs e)
+        {
+            m_spectrum.DoStop();
+            UpdateCPU(true);
+        }
+
+        private void toolStripStepInto_Click(object sender, EventArgs e)
+        {
+            if (m_spectrum.IsRunning)
+                return;
+            try
+            {
+                m_spectrum.DoStepInto();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex);
+                Locator.Resolve<IUserMessage>().ErrorDetails(ex);
+            }
+            UpdateCPU(true);
+        }
+
+        private void toolStripStepOver_Click(object sender, EventArgs e)
+        {
+            if (m_spectrum.IsRunning)
+                return;
+            try
+            {
+                m_spectrum.DoStepOver();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex);
+                Locator.Resolve<IUserMessage>().ErrorDetails(ex);
+            }
+            UpdateCPU(true);
+        }
+
+        private void toolStripStepOut_Click(object sender, EventArgs e)
+        {
+            Locator.Resolve<IUserMessage>().Error("Not implemented");
+        }
+
+        private void toolStripShowNext_Click(object sender, EventArgs e)
+        {
+            dasmPanel.ActiveAddress = m_spectrum.CPU.regs.PC;
+            dasmPanel.UpdateLines();
+            Refresh();
+        }
+
+        #endregion Toolstrip handlers
     }
 }

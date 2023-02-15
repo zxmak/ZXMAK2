@@ -46,21 +46,41 @@ namespace ZXMAK2.Hardware.WinForms.General
             this.menuItem2 = new System.Windows.Forms.MenuItem();
             this.menuItemDasmClearBreakpoints = new System.Windows.Forms.MenuItem();
             this.menuItem4 = new System.Windows.Forms.MenuItem();
-            this.menuDasmLoadBlock = new System.Windows.Forms.MenuItem();
-            this.menuDasmSaveBlock = new System.Windows.Forms.MenuItem();
-            this.menuItem1 = new System.Windows.Forms.MenuItem();
             this.menuItemDasmRefresh = new System.Windows.Forms.MenuItem();
             this.contextMenuData = new System.Windows.Forms.ContextMenu();
             this.menuItemDataGotoADDR = new System.Windows.Forms.MenuItem();
             this.menuItemDataSetColumnCount = new System.Windows.Forms.MenuItem();
             this.menuItem5 = new System.Windows.Forms.MenuItem();
-            this.menuDataLoadBlock = new System.Windows.Forms.MenuItem();
-            this.menuDataSaveBlock = new System.Windows.Forms.MenuItem();
-            this.menuItem3 = new System.Windows.Forms.MenuItem();
             this.menuItemDataRefresh = new System.Windows.Forms.MenuItem();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusTact = new System.Windows.Forms.ToolStripStatusLabel();
+            this.menuStrip = new System.Windows.Forms.MenuStrip();
+            this.menuFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuFileLoad = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuFileSave = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuFileSplitter = new System.Windows.Forms.ToolStripSeparator();
+            this.menuFileClose = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuDebug = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuDebugContinue = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuDebugBreak = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuDebugSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.menuDebugStepInto = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuDebugStepOver = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuDebugStepOut = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuDebugSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.menuDebugShowNext = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStrip = new ZXMAK2.Host.WinForms.Controls.ToolStripEx();
+            this.toolStripContinue = new System.Windows.Forms.ToolStripButton();
+            this.toolStripBreak = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripStepInto = new System.Windows.Forms.ToolStripButton();
+            this.toolStripStepOver = new System.Windows.Forms.ToolStripButton();
+            this.toolStripStepOut = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripShowNext = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripBreakpoints = new System.Windows.Forms.ToolStripButton();
             this.dasmPanel = new ZXMAK2.Hardware.WinForms.General.DasmPanel();
             this.dataPanel = new ZXMAK2.Hardware.WinForms.General.DataPanel();
             this.panelStatus.SuspendLayout();
@@ -69,6 +89,8 @@ namespace ZXMAK2.Hardware.WinForms.General
             this.panelMem.SuspendLayout();
             this.panelDasm.SuspendLayout();
             this.statusStrip.SuspendLayout();
+            this.menuStrip.SuspendLayout();
+            this.toolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelStatus
@@ -77,9 +99,9 @@ namespace ZXMAK2.Hardware.WinForms.General
             this.panelStatus.Controls.Add(this.splitter3);
             this.panelStatus.Controls.Add(this.panelRegs);
             this.panelStatus.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelStatus.Location = new System.Drawing.Point(451, 0);
+            this.panelStatus.Location = new System.Drawing.Point(451, 49);
             this.panelStatus.Name = "panelStatus";
-            this.panelStatus.Size = new System.Drawing.Size(168, 378);
+            this.panelStatus.Size = new System.Drawing.Size(168, 371);
             this.panelStatus.TabIndex = 0;
             // 
             // panelState
@@ -89,7 +111,7 @@ namespace ZXMAK2.Hardware.WinForms.General
             this.panelState.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelState.Location = new System.Drawing.Point(0, 224);
             this.panelState.Name = "panelState";
-            this.panelState.Size = new System.Drawing.Size(168, 154);
+            this.panelState.Size = new System.Drawing.Size(168, 147);
             this.panelState.TabIndex = 2;
             // 
             // listState
@@ -101,7 +123,7 @@ namespace ZXMAK2.Hardware.WinForms.General
             this.listState.ItemHeight = 14;
             this.listState.Location = new System.Drawing.Point(0, 0);
             this.listState.Name = "listState";
-            this.listState.Size = new System.Drawing.Size(164, 150);
+            this.listState.Size = new System.Drawing.Size(164, 143);
             this.listState.TabIndex = 3;
             this.listState.DoubleClick += new System.EventHandler(this.listState_DoubleClick);
             // 
@@ -189,9 +211,9 @@ namespace ZXMAK2.Hardware.WinForms.General
             // splitter1
             // 
             this.splitter1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.splitter1.Location = new System.Drawing.Point(448, 0);
+            this.splitter1.Location = new System.Drawing.Point(448, 49);
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(3, 378);
+            this.splitter1.Size = new System.Drawing.Size(3, 371);
             this.splitter1.TabIndex = 1;
             this.splitter1.TabStop = false;
             // 
@@ -200,7 +222,7 @@ namespace ZXMAK2.Hardware.WinForms.General
             this.panelMem.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panelMem.Controls.Add(this.dataPanel);
             this.panelMem.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelMem.Location = new System.Drawing.Point(0, 256);
+            this.panelMem.Location = new System.Drawing.Point(0, 298);
             this.panelMem.Name = "panelMem";
             this.panelMem.Size = new System.Drawing.Size(448, 122);
             this.panelMem.TabIndex = 2;
@@ -208,7 +230,7 @@ namespace ZXMAK2.Hardware.WinForms.General
             // splitter2
             // 
             this.splitter2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.splitter2.Location = new System.Drawing.Point(0, 253);
+            this.splitter2.Location = new System.Drawing.Point(0, 295);
             this.splitter2.Name = "splitter2";
             this.splitter2.Size = new System.Drawing.Size(448, 3);
             this.splitter2.TabIndex = 3;
@@ -219,9 +241,9 @@ namespace ZXMAK2.Hardware.WinForms.General
             this.panelDasm.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panelDasm.Controls.Add(this.dasmPanel);
             this.panelDasm.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelDasm.Location = new System.Drawing.Point(0, 0);
+            this.panelDasm.Location = new System.Drawing.Point(0, 49);
             this.panelDasm.Name = "panelDasm";
-            this.panelDasm.Size = new System.Drawing.Size(448, 253);
+            this.panelDasm.Size = new System.Drawing.Size(448, 246);
             this.panelDasm.TabIndex = 4;
             // 
             // contextMenuDasm
@@ -232,9 +254,6 @@ namespace ZXMAK2.Hardware.WinForms.General
             this.menuItem2,
             this.menuItemDasmClearBreakpoints,
             this.menuItem4,
-            this.menuDasmLoadBlock,
-            this.menuDasmSaveBlock,
-            this.menuItem1,
             this.menuItemDasmRefresh});
             this.contextMenuDasm.Popup += new System.EventHandler(this.contextMenuDasm_Popup);
             // 
@@ -266,26 +285,9 @@ namespace ZXMAK2.Hardware.WinForms.General
             this.menuItem4.Index = 4;
             this.menuItem4.Text = "-";
             // 
-            // menuDasmLoadBlock
-            // 
-            this.menuDasmLoadBlock.Index = 5;
-            this.menuDasmLoadBlock.Text = "Load Block...";
-            this.menuDasmLoadBlock.Click += new System.EventHandler(this.menuLoadBlock_Click);
-            // 
-            // menuDasmSaveBlock
-            // 
-            this.menuDasmSaveBlock.Index = 6;
-            this.menuDasmSaveBlock.Text = "Save Block...";
-            this.menuDasmSaveBlock.Click += new System.EventHandler(this.menuSaveBlock_Click);
-            // 
-            // menuItem1
-            // 
-            this.menuItem1.Index = 7;
-            this.menuItem1.Text = "-";
-            // 
             // menuItemDasmRefresh
             // 
-            this.menuItemDasmRefresh.Index = 8;
+            this.menuItemDasmRefresh.Index = 5;
             this.menuItemDasmRefresh.Text = "Refresh";
             this.menuItemDasmRefresh.Click += new System.EventHandler(this.menuItemDasmRefresh_Click);
             // 
@@ -295,9 +297,6 @@ namespace ZXMAK2.Hardware.WinForms.General
             this.menuItemDataGotoADDR,
             this.menuItemDataSetColumnCount,
             this.menuItem5,
-            this.menuDataLoadBlock,
-            this.menuDataSaveBlock,
-            this.menuItem3,
             this.menuItemDataRefresh});
             // 
             // menuItemDataGotoADDR
@@ -317,26 +316,9 @@ namespace ZXMAK2.Hardware.WinForms.General
             this.menuItem5.Index = 2;
             this.menuItem5.Text = "-";
             // 
-            // menuDataLoadBlock
-            // 
-            this.menuDataLoadBlock.Index = 3;
-            this.menuDataLoadBlock.Text = "Load Block...";
-            this.menuDataLoadBlock.Click += new System.EventHandler(this.menuLoadBlock_Click);
-            // 
-            // menuDataSaveBlock
-            // 
-            this.menuDataSaveBlock.Index = 4;
-            this.menuDataSaveBlock.Text = "Save Block...";
-            this.menuDataSaveBlock.Click += new System.EventHandler(this.menuSaveBlock_Click);
-            // 
-            // menuItem3
-            // 
-            this.menuItem3.Index = 5;
-            this.menuItem3.Text = "-";
-            // 
             // menuItemDataRefresh
             // 
-            this.menuItemDataRefresh.Index = 6;
+            this.menuItemDataRefresh.Index = 3;
             this.menuItemDataRefresh.Text = "Refresh";
             this.menuItemDataRefresh.Click += new System.EventHandler(this.menuItemDataRefresh_Click);
             // 
@@ -345,7 +327,7 @@ namespace ZXMAK2.Hardware.WinForms.General
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatus,
             this.toolStripStatusTact});
-            this.statusStrip.Location = new System.Drawing.Point(0, 378);
+            this.statusStrip.Location = new System.Drawing.Point(0, 420);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Size = new System.Drawing.Size(619, 22);
             this.statusStrip.SizingGrip = false;
@@ -368,6 +350,215 @@ namespace ZXMAK2.Hardware.WinForms.General
             this.toolStripStatusTact.Text = "T: 71680 / 71680";
             this.toolStripStatusTact.DoubleClick += new System.EventHandler(this.toolStripStatusTact_DoubleClick);
             // 
+            // menuStrip
+            // 
+            this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuFile,
+            this.menuDebug});
+            this.menuStrip.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip.Name = "menuStrip";
+            this.menuStrip.Size = new System.Drawing.Size(619, 24);
+            this.menuStrip.TabIndex = 6;
+            this.menuStrip.Text = "menuStrip1";
+            // 
+            // menuFile
+            // 
+            this.menuFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuFileLoad,
+            this.menuFileSave,
+            this.menuFileSplitter,
+            this.menuFileClose});
+            this.menuFile.Name = "menuFile";
+            this.menuFile.Size = new System.Drawing.Size(37, 20);
+            this.menuFile.Text = "File";
+            // 
+            // menuFileLoad
+            // 
+            this.menuFileLoad.Name = "menuFileLoad";
+            this.menuFileLoad.Size = new System.Drawing.Size(109, 22);
+            this.menuFileLoad.Text = "Load...";
+            this.menuFileLoad.Click += new System.EventHandler(this.menuFileLoad_Click);
+            // 
+            // menuFileSave
+            // 
+            this.menuFileSave.Name = "menuFileSave";
+            this.menuFileSave.Size = new System.Drawing.Size(109, 22);
+            this.menuFileSave.Text = "Save...";
+            this.menuFileSave.Click += new System.EventHandler(this.menuFileSave_Click);
+            // 
+            // menuFileSplitter
+            // 
+            this.menuFileSplitter.Name = "menuFileSplitter";
+            this.menuFileSplitter.Size = new System.Drawing.Size(106, 6);
+            // 
+            // menuFileClose
+            // 
+            this.menuFileClose.Name = "menuFileClose";
+            this.menuFileClose.Size = new System.Drawing.Size(109, 22);
+            this.menuFileClose.Text = "Close";
+            this.menuFileClose.Click += new System.EventHandler(this.menuFileClose_Click);
+            // 
+            // menuDebug
+            // 
+            this.menuDebug.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuDebugContinue,
+            this.menuDebugBreak,
+            this.menuDebugSeparator1,
+            this.menuDebugStepInto,
+            this.menuDebugStepOver,
+            this.menuDebugStepOut,
+            this.menuDebugSeparator2,
+            this.menuDebugShowNext});
+            this.menuDebug.Name = "menuDebug";
+            this.menuDebug.Size = new System.Drawing.Size(54, 20);
+            this.menuDebug.Text = "Debug";
+            this.menuDebug.Visible = false;
+            // 
+            // menuDebugContinue
+            // 
+            this.menuDebugContinue.Name = "menuDebugContinue";
+            this.menuDebugContinue.Size = new System.Drawing.Size(190, 22);
+            this.menuDebugContinue.Text = "Continue";
+            // 
+            // menuDebugBreak
+            // 
+            this.menuDebugBreak.Name = "menuDebugBreak";
+            this.menuDebugBreak.Size = new System.Drawing.Size(190, 22);
+            this.menuDebugBreak.Text = "Break";
+            // 
+            // menuDebugSeparator1
+            // 
+            this.menuDebugSeparator1.Name = "menuDebugSeparator1";
+            this.menuDebugSeparator1.Size = new System.Drawing.Size(187, 6);
+            // 
+            // menuDebugStepInto
+            // 
+            this.menuDebugStepInto.Name = "menuDebugStepInto";
+            this.menuDebugStepInto.Size = new System.Drawing.Size(190, 22);
+            this.menuDebugStepInto.Text = "Step Into";
+            // 
+            // menuDebugStepOver
+            // 
+            this.menuDebugStepOver.Name = "menuDebugStepOver";
+            this.menuDebugStepOver.Size = new System.Drawing.Size(190, 22);
+            this.menuDebugStepOver.Text = "Step Over";
+            // 
+            // menuDebugStepOut
+            // 
+            this.menuDebugStepOut.Name = "menuDebugStepOut";
+            this.menuDebugStepOut.Size = new System.Drawing.Size(190, 22);
+            this.menuDebugStepOut.Text = "Step Out";
+            // 
+            // menuDebugSeparator2
+            // 
+            this.menuDebugSeparator2.Name = "menuDebugSeparator2";
+            this.menuDebugSeparator2.Size = new System.Drawing.Size(187, 6);
+            // 
+            // menuDebugShowNext
+            // 
+            this.menuDebugShowNext.Name = "menuDebugShowNext";
+            this.menuDebugShowNext.Size = new System.Drawing.Size(190, 22);
+            this.menuDebugShowNext.Text = "Show Next Instruction";
+            // 
+            // toolStrip
+            // 
+            this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripContinue,
+            this.toolStripBreak,
+            this.toolStripSeparator1,
+            this.toolStripStepInto,
+            this.toolStripStepOver,
+            this.toolStripStepOut,
+            this.toolStripSeparator2,
+            this.toolStripShowNext,
+            this.toolStripSeparator3,
+            this.toolStripBreakpoints});
+            this.toolStrip.Location = new System.Drawing.Point(0, 24);
+            this.toolStrip.Name = "toolStrip";
+            this.toolStrip.Padding = new System.Windows.Forms.Padding(0);
+            this.toolStrip.Size = new System.Drawing.Size(619, 25);
+            this.toolStrip.TabIndex = 7;
+            this.toolStrip.Text = "toolStripEx1";
+            // 
+            // toolStripContinue
+            // 
+            this.toolStripContinue.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripContinue.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripContinue.Name = "toolStripContinue";
+            this.toolStripContinue.Size = new System.Drawing.Size(23, 22);
+            this.toolStripContinue.Text = "Continue";
+            this.toolStripContinue.Click += new System.EventHandler(this.toolStripContinue_Click);
+            // 
+            // toolStripBreak
+            // 
+            this.toolStripBreak.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripBreak.Enabled = false;
+            this.toolStripBreak.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripBreak.Name = "toolStripBreak";
+            this.toolStripBreak.Size = new System.Drawing.Size(23, 22);
+            this.toolStripBreak.Text = "Break";
+            this.toolStripBreak.Click += new System.EventHandler(this.toolStripBreak_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripStepInto
+            // 
+            this.toolStripStepInto.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripStepInto.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripStepInto.Name = "toolStripStepInto";
+            this.toolStripStepInto.Size = new System.Drawing.Size(23, 22);
+            this.toolStripStepInto.Text = "Step Into";
+            this.toolStripStepInto.Click += new System.EventHandler(this.toolStripStepInto_Click);
+            // 
+            // toolStripStepOver
+            // 
+            this.toolStripStepOver.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripStepOver.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripStepOver.Name = "toolStripStepOver";
+            this.toolStripStepOver.Size = new System.Drawing.Size(23, 22);
+            this.toolStripStepOver.Text = "Step Over";
+            this.toolStripStepOver.Click += new System.EventHandler(this.toolStripStepOver_Click);
+            // 
+            // toolStripStepOut
+            // 
+            this.toolStripStepOut.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripStepOut.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripStepOut.Name = "toolStripStepOut";
+            this.toolStripStepOut.Size = new System.Drawing.Size(23, 22);
+            this.toolStripStepOut.Text = "Step Out";
+            this.toolStripStepOut.Click += new System.EventHandler(this.toolStripStepOut_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripShowNext
+            // 
+            this.toolStripShowNext.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripShowNext.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripShowNext.Name = "toolStripShowNext";
+            this.toolStripShowNext.Size = new System.Drawing.Size(23, 22);
+            this.toolStripShowNext.Text = "Show Next Statement";
+            this.toolStripShowNext.Click += new System.EventHandler(this.toolStripShowNext_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripBreakpoints
+            // 
+            this.toolStripBreakpoints.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripBreakpoints.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripBreakpoints.Name = "toolStripBreakpoints";
+            this.toolStripBreakpoints.Size = new System.Drawing.Size(23, 22);
+            this.toolStripBreakpoints.Text = "Breakpoints";
+            // 
             // dasmPanel
             // 
             this.dasmPanel.ActiveAddress = ((ushort)(0));
@@ -378,7 +569,7 @@ namespace ZXMAK2.Hardware.WinForms.General
             this.dasmPanel.ForeColor = System.Drawing.SystemColors.ControlText;
             this.dasmPanel.Location = new System.Drawing.Point(0, 0);
             this.dasmPanel.Name = "dasmPanel";
-            this.dasmPanel.Size = new System.Drawing.Size(444, 249);
+            this.dasmPanel.Size = new System.Drawing.Size(444, 242);
             this.dasmPanel.TabIndex = 0;
             this.dasmPanel.Text = "dasmPanel1";
             this.dasmPanel.TopAddress = ((ushort)(0));
@@ -408,15 +599,18 @@ namespace ZXMAK2.Hardware.WinForms.General
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(619, 400);
+            this.ClientSize = new System.Drawing.Size(619, 442);
             this.Controls.Add(this.panelDasm);
             this.Controls.Add(this.splitter2);
             this.Controls.Add(this.panelMem);
             this.Controls.Add(this.splitter1);
             this.Controls.Add(this.panelStatus);
             this.Controls.Add(this.statusStrip);
+            this.Controls.Add(this.toolStrip);
+            this.Controls.Add(this.menuStrip);
             this.KeyPreview = true;
             this.Name = "FormCpu";
+            this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.Text = "Z80 CPU";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormCPU_FormClosed);
@@ -430,6 +624,10 @@ namespace ZXMAK2.Hardware.WinForms.General
             this.panelDasm.ResumeLayout(false);
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
+            this.menuStrip.ResumeLayout(false);
+            this.menuStrip.PerformLayout();
+            this.toolStrip.ResumeLayout(false);
+            this.toolStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -463,15 +661,35 @@ namespace ZXMAK2.Hardware.WinForms.General
       private System.Windows.Forms.MenuItem menuItemDataSetColumnCount;
       private System.Windows.Forms.MenuItem menuItem5;
       private System.Windows.Forms.MenuItem menuItemDataRefresh;
-      private System.Windows.Forms.MenuItem menuDasmLoadBlock;
-      private System.Windows.Forms.MenuItem menuDasmSaveBlock;
-      private System.Windows.Forms.MenuItem menuItem1;
-      private System.Windows.Forms.MenuItem menuDataLoadBlock;
-      private System.Windows.Forms.MenuItem menuDataSaveBlock;
-      private System.Windows.Forms.MenuItem menuItem3;
       private System.Windows.Forms.StatusStrip statusStrip;
       private System.Windows.Forms.ToolStripStatusLabel toolStripStatus;
       private System.Windows.Forms.ToolStripStatusLabel toolStripStatusTact;
+      private System.Windows.Forms.MenuStrip menuStrip;
+      private System.Windows.Forms.ToolStripMenuItem menuFile;
+      private System.Windows.Forms.ToolStripMenuItem menuFileLoad;
+      private System.Windows.Forms.ToolStripMenuItem menuFileSave;
+      private System.Windows.Forms.ToolStripSeparator menuFileSplitter;
+      private System.Windows.Forms.ToolStripMenuItem menuFileClose;
+      private System.Windows.Forms.ToolStripMenuItem menuDebug;
+      private System.Windows.Forms.ToolStripMenuItem menuDebugContinue;
+      private System.Windows.Forms.ToolStripMenuItem menuDebugBreak;
+      private System.Windows.Forms.ToolStripSeparator menuDebugSeparator1;
+      private System.Windows.Forms.ToolStripMenuItem menuDebugStepInto;
+      private System.Windows.Forms.ToolStripMenuItem menuDebugStepOver;
+      private System.Windows.Forms.ToolStripMenuItem menuDebugStepOut;
+      private System.Windows.Forms.ToolStripSeparator menuDebugSeparator2;
+      private System.Windows.Forms.ToolStripMenuItem menuDebugShowNext;
+      private Host.WinForms.Controls.ToolStripEx toolStrip;
+      private System.Windows.Forms.ToolStripButton toolStripContinue;
+      private System.Windows.Forms.ToolStripButton toolStripBreak;
+      private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+      private System.Windows.Forms.ToolStripButton toolStripStepInto;
+      private System.Windows.Forms.ToolStripButton toolStripStepOver;
+      private System.Windows.Forms.ToolStripButton toolStripStepOut;
+      private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+      private System.Windows.Forms.ToolStripButton toolStripShowNext;
+      private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+      private System.Windows.Forms.ToolStripButton toolStripBreakpoints;
  
    }
 }
