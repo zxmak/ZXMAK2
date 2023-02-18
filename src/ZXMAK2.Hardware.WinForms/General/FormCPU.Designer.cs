@@ -99,7 +99,7 @@ namespace ZXMAK2.Hardware.WinForms.General
             this.panelStatus.Controls.Add(this.splitter3);
             this.panelStatus.Controls.Add(this.panelRegs);
             this.panelStatus.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelStatus.Location = new System.Drawing.Point(451, 49);
+            this.panelStatus.Location = new System.Drawing.Point(456, 49);
             this.panelStatus.Name = "panelStatus";
             this.panelStatus.Size = new System.Drawing.Size(168, 371);
             this.panelStatus.TabIndex = 0;
@@ -138,6 +138,7 @@ namespace ZXMAK2.Hardware.WinForms.General
             // 
             // panelRegs
             // 
+            this.panelRegs.BackColor = System.Drawing.Color.White;
             this.panelRegs.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panelRegs.Controls.Add(this.listF);
             this.panelRegs.Controls.Add(this.splitter4);
@@ -150,7 +151,6 @@ namespace ZXMAK2.Hardware.WinForms.General
             // 
             // listF
             // 
-            this.listF.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.listF.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listF.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.listF.FormattingEnabled = true;
@@ -181,7 +181,6 @@ namespace ZXMAK2.Hardware.WinForms.General
             // 
             // listREGS
             // 
-            this.listREGS.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.listREGS.Dock = System.Windows.Forms.DockStyle.Left;
             this.listREGS.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.listREGS.FormattingEnabled = true;
@@ -211,7 +210,7 @@ namespace ZXMAK2.Hardware.WinForms.General
             // splitter1
             // 
             this.splitter1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.splitter1.Location = new System.Drawing.Point(448, 49);
+            this.splitter1.Location = new System.Drawing.Point(453, 49);
             this.splitter1.Name = "splitter1";
             this.splitter1.Size = new System.Drawing.Size(3, 371);
             this.splitter1.TabIndex = 1;
@@ -219,12 +218,13 @@ namespace ZXMAK2.Hardware.WinForms.General
             // 
             // panelMem
             // 
+            this.panelMem.BackColor = System.Drawing.Color.White;
             this.panelMem.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panelMem.Controls.Add(this.dataPanel);
             this.panelMem.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelMem.Location = new System.Drawing.Point(0, 298);
             this.panelMem.Name = "panelMem";
-            this.panelMem.Size = new System.Drawing.Size(448, 122);
+            this.panelMem.Size = new System.Drawing.Size(453, 122);
             this.panelMem.TabIndex = 2;
             // 
             // dataPanel
@@ -234,7 +234,7 @@ namespace ZXMAK2.Hardware.WinForms.General
             this.dataPanel.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.dataPanel.Location = new System.Drawing.Point(0, 0);
             this.dataPanel.Name = "dataPanel";
-            this.dataPanel.Size = new System.Drawing.Size(444, 118);
+            this.dataPanel.Size = new System.Drawing.Size(449, 118);
             this.dataPanel.TabIndex = 0;
             this.dataPanel.Text = "dataPanel1";
             this.dataPanel.TopAddress = ((ushort)(0));
@@ -247,18 +247,19 @@ namespace ZXMAK2.Hardware.WinForms.General
             this.splitter2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.splitter2.Location = new System.Drawing.Point(0, 295);
             this.splitter2.Name = "splitter2";
-            this.splitter2.Size = new System.Drawing.Size(448, 3);
+            this.splitter2.Size = new System.Drawing.Size(453, 3);
             this.splitter2.TabIndex = 3;
             this.splitter2.TabStop = false;
             // 
             // panelDasm
             // 
+            this.panelDasm.BackColor = System.Drawing.Color.White;
             this.panelDasm.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panelDasm.Controls.Add(this.dasmPanel);
             this.panelDasm.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelDasm.Location = new System.Drawing.Point(0, 49);
             this.panelDasm.Name = "panelDasm";
-            this.panelDasm.Size = new System.Drawing.Size(448, 246);
+            this.panelDasm.Size = new System.Drawing.Size(453, 246);
             this.panelDasm.TabIndex = 4;
             // 
             // dasmPanel
@@ -271,7 +272,7 @@ namespace ZXMAK2.Hardware.WinForms.General
             this.dasmPanel.ForeColor = System.Drawing.SystemColors.ControlText;
             this.dasmPanel.Location = new System.Drawing.Point(0, 0);
             this.dasmPanel.Name = "dasmPanel";
-            this.dasmPanel.Size = new System.Drawing.Size(444, 242);
+            this.dasmPanel.Size = new System.Drawing.Size(449, 242);
             this.dasmPanel.TabIndex = 0;
             this.dasmPanel.Text = "dasmPanel1";
             this.dasmPanel.TopAddress = ((ushort)(0));
@@ -365,7 +366,7 @@ namespace ZXMAK2.Hardware.WinForms.General
             this.toolStripStatusTact});
             this.statusStrip.Location = new System.Drawing.Point(0, 420);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(619, 22);
+            this.statusStrip.Size = new System.Drawing.Size(624, 22);
             this.statusStrip.SizingGrip = false;
             this.statusStrip.TabIndex = 5;
             this.statusStrip.Text = "statusStrip1";
@@ -373,7 +374,7 @@ namespace ZXMAK2.Hardware.WinForms.General
             // toolStripStatus
             // 
             this.toolStripStatus.Name = "toolStripStatus";
-            this.toolStripStatus.Size = new System.Drawing.Size(513, 17);
+            this.toolStripStatus.Size = new System.Drawing.Size(518, 17);
             this.toolStripStatus.Spring = true;
             this.toolStripStatus.Text = "Ready";
             this.toolStripStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -393,7 +394,7 @@ namespace ZXMAK2.Hardware.WinForms.General
             this.menuDebug});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(619, 24);
+            this.menuStrip.Size = new System.Drawing.Size(624, 24);
             this.menuStrip.TabIndex = 6;
             this.menuStrip.Text = "menuStrip1";
             // 
@@ -513,7 +514,7 @@ namespace ZXMAK2.Hardware.WinForms.General
             this.toolStrip.Location = new System.Drawing.Point(0, 24);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Padding = new System.Windows.Forms.Padding(0);
-            this.toolStrip.Size = new System.Drawing.Size(619, 25);
+            this.toolStrip.Size = new System.Drawing.Size(624, 25);
             this.toolStrip.TabIndex = 7;
             this.toolStrip.Text = "toolStripEx1";
             // 
@@ -599,7 +600,7 @@ namespace ZXMAK2.Hardware.WinForms.General
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(619, 442);
+            this.ClientSize = new System.Drawing.Size(624, 442);
             this.Controls.Add(this.panelDasm);
             this.Controls.Add(this.splitter2);
             this.Controls.Add(this.panelMem);
