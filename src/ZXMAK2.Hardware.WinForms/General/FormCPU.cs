@@ -65,6 +65,8 @@ namespace ZXMAK2.Hardware.WinForms.General
             {
                 m_spectrum.UpdateState -= spectrum_OnUpdateState;
                 m_spectrum.Breakpoint -= spectrum_OnBreakpoint;
+                m_dasmTool = null;
+                m_timingTool = null;
             }
             if (debugTarget != null)
             {
@@ -78,8 +80,7 @@ namespace ZXMAK2.Hardware.WinForms.General
 
         private void FormCPU_FormClosed(object sender, FormClosedEventArgs e)
         {
-            m_spectrum.UpdateState -= spectrum_OnUpdateState;
-            m_spectrum.Breakpoint -= spectrum_OnBreakpoint;
+            Init(null);
         }
 
         private void FormCPU_Shown(object sender, EventArgs e)
@@ -136,7 +137,7 @@ namespace ZXMAK2.Hardware.WinForms.General
             toolStripBreakpoints.Enabled = false;
 
 
-            dasmPanel.ForeColor = m_spectrum.IsRunning ? SystemColors.ControlDarkDark : SystemColors.ControlText;
+            dasmPanel.ForeColor = isRunning ? SystemColors.ControlDarkDark : SystemColors.ControlText;
             UpdateREGS();
             UpdateDASM(updatePC && !isRunning);
             UpdateDATA();
@@ -186,9 +187,9 @@ namespace ZXMAK2.Hardware.WinForms.General
             }
         }
 
-        private void UpdateDASM(bool updatePC)
+        private void UpdateDASM(bool updateAddress)
         {
-            if (!m_spectrum.IsRunning && updatePC)
+            if (updateAddress)
             {
                 dasmPanel.ActiveAddress = m_spectrum.CPU.regs.PC;
             }
@@ -579,6 +580,7 @@ namespace ZXMAK2.Hardware.WinForms.General
 
         private void toolStripStatusTact_DoubleClick(object sender, EventArgs e)
         {
+            if (m_spectrum == null || m_spectrum.IsRunning) return;
             var frameTact = m_spectrum.GetFrameTact();
             var service = Locator.Resolve<IUserQuery>();
             if (service.QueryValue("Frame Tact", "New Frame Tact:", "{0}", ref frameTact, 0, m_spectrum.FrameTactCount))
