@@ -36,6 +36,11 @@ namespace ZXMAK2.Hardware.WinForms.General
                 statusStrip.Padding.Left, 
                 statusStrip.Padding.Bottom);
             LoadImages();
+
+            toolStripContinue.ToolTipText += " (F9)";
+            toolStripBreak.ToolTipText += " (F5)";
+            toolStripStepInto.ToolTipText += " (F7)";
+            toolStripStepOver.ToolTipText += " (F8)";
         }
 
         private void LoadImages()
