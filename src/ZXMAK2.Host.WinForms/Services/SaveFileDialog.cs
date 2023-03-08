@@ -18,7 +18,7 @@ namespace ZXMAK2.Host.WinForms.Services
 
         public void Dispose()
         {
-            _hostDialog.Dispose();
+            //_hostDialog.Dispose();
         }
 
         public string Title
