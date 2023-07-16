@@ -23,6 +23,7 @@ namespace ZXMAK2.Serializers
             AddSerializer(new QdiSerializer(diskImage));
             AddSerializer(new SclSerializer(diskImage));
             AddSerializer(new HobetaSerializer(diskImage));
+            AddSerializer(new HfeSerializer(diskImage));
 
             diskImage.LoadDisk += LoadDisk;
             diskImage.SaveDisk += SaveDisk;

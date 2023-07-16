@@ -91,6 +91,7 @@
     <Compile Include="RzxHandler.cs" />
     <Compile Include="Serializers\DiskLoadManager.cs" />
     <Compile Include="Serializers\DiskSerializers\FdiSerializer.cs" />
+    <Compile Include="Serializers\DiskSerializers\HfeSerializer.cs" />
     <Compile Include="Serializers\DiskSerializers\HobetaSerializer.cs" />
     <Compile Include="Serializers\DiskSerializers\ImgSerializer.cs" />
     <Compile Include="Serializers\DiskSerializers\LzssHuffmanStream.cs" />
